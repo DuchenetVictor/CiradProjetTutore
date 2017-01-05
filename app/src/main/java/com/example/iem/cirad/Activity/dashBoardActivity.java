@@ -1,4 +1,4 @@
-package com.example.iem.cirad;
+package com.example.iem.cirad.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.iem.cirad.R;
 
 public class dashBoardActivity extends AppCompatActivity {
 
