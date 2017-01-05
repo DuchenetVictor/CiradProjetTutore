@@ -12,12 +12,18 @@
             android:name=".Activity.dashBoardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.detailsActionActivity"
+            android:label="@string/title_activity_details_action"
+            android:theme="@style/AppTheme.NoActionBar"
+           ></activity>
     </application>
 
 </manifest>
