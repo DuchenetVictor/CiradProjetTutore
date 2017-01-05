@@ -8,6 +8,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="#FFFF"
     tools:context="com.example.iem.cirad.Activity.LoginActivity">
 
     <!-- Login progress -->
@@ -17,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        />
 
     <ScrollView
 
@@ -30,6 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView android:src="@drawable/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginBottom="24dp"
+                android:layout_gravity="center_horizontal" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -65,13 +75,29 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/sign_in_button"
+            android:id="@+id/sign_in_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/action_sign_in"
+            android:background="#27A22D"
+            android:textStyle="bold"
+            android:textColor="#FFFF"/>
+
+            <Button
+                android:id="@+id/sync_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="140dp"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:layout_marginTop="50dp"
+                android:text="@string/action_sync"
+                android:background="#1477e1"
+                android:textStyle="bold"
+                android:textColor="#FFFF"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
