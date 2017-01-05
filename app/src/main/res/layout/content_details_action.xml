@@ -12,36 +12,94 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.iem.cirad.Activity.detailsActionActivity"
     tools:showIn="@layout/activity_details_action">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Traitement fongique"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Niveau d'urgence"/>
-    <SeekBar
-        android:id="@+id/sbNivAlerte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:minWidth="200dp"
-        android:max="10" />
 
-<TextView
-    android:id="@+id/txtViewNivAlerte"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="test" />
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="Traitement fongique"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginTop="20dp"
+            android:background="#585858" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Niveau d'urgence" />
+
+        <SeekBar
+
+            android:id="@+id/sbLvlAlerte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:max="2"
+            android:layout_gravity="center"
+            android:minWidth="200dp"
+            android:progress="1" />
+
+        <TextView
+            android:id="@+id/tvLvlAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Niveau de traitement" />
+
+        <SeekBar
+
+            android:id="@+id/sbLvlTreatment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:max="2"
+            android:minWidth="200dp"
+            android:progress="1" />
+
+        <TextView
+            android:id="@+id/tvLvlTreatment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Information supplémentaire"
+            android:layout_gravity="center"/>
+
+        <ScrollView
+            android:id="@+id/ScrollView01"
+            android:layout_width="wrap_content"
+            android:layout_height="150dip">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+
+    </LinearLayout>
 
 
 </RelativeLayout>

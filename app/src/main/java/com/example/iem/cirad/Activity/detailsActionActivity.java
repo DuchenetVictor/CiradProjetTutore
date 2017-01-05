@@ -30,37 +30,85 @@ public class detailsActionActivity extends AppCompatActivity {
             }
         });
         setTitle(R.string.title_activity_details_action);
-        seekBar();
+        seekBarUrgence();
+        seekBarNivTraitement();
     }
 
 
-    private void seekBar(){
-         SeekBar seekBar = (SeekBar) findViewById(R.id.sbNivAlerte);
-       final TextView textView = (TextView) findViewById(R.id.txtViewNivAlerte);;
+    private void seekBarUrgence(){
+         SeekBar sbLvlAlerte = (SeekBar) findViewById(R.id.sbLvlAlerte);
+       final TextView tvLvlAlert = (TextView) findViewById(R.id.tvLvlAlert);;
+       tvLvlAlert.setText("1 (normal)" );
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            int progress = 0;
+        sbLvlAlerte.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 1;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                progress = progresValue;
-                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                if(progresValue == 0)
+                {
+                    tvLvlAlert.setText( progresValue + " (peu urgent)" );
+                }
+                else if(progresValue == 1)
+                {
+                    tvLvlAlert.setText( progresValue + " (normal)" );
+                }
+                else
+                {
+                    tvLvlAlert.setText( progresValue + " (très urgent)" );
+                }
+
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                textView.setText("Covered: " + progress + "/" + seekBar.getMax());
-                Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-
     }
+
+
+    private void seekBarNivTraitement(){
+        SeekBar sbLvlTreatment = (SeekBar) findViewById(R.id.sbLvlTreatment);
+        final TextView tvLvlTreatment = (TextView) findViewById(R.id.tvLvlTreatment);;
+        tvLvlTreatment.setText("1 (normal)" );
+
+        sbLvlTreatment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progress = 1;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                if(progresValue == 0)
+                {
+                    tvLvlTreatment.setText( progresValue + " (peu intensif)" );
+                }
+                else if(progresValue == 1)
+                {
+                    tvLvlTreatment.setText( progresValue + " (normal)" );
+                }
+                else
+                {
+                    tvLvlTreatment.setText( progresValue + " (très intensif)" );
+                }
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+
 
 }
