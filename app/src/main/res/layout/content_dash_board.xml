@@ -20,17 +20,45 @@
         android:weightSum="1">
 
         <TextView
-            android:layout_width="268dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recapitulatif des parcelles saisies non synchronisées :"
+            android:text="Saisies non synchronisées :"
             android:textColor="@android:color/black"
             android:fontFamily="sans-serif"
-            android:layout_weight="0.04" />
+            android:textAlignment="center"
+            android:layout_marginTop="5pt"
+            android:layout_marginBottom="7pt"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="Sync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#f3cf00"
+                android:layout_marginBottom="5pt"
+                android:id="@+id/btnSynchParcel" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.5dp"
+            android:background="#b9b9b9"/>
 
         <ListView
-            android:layout_marginTop="15pt"
+            android:layout_marginTop="7pt"
             android:layout_width="match_parent"
-            android:layout_height="473dp"
+            android:layout_height="465dp"
             android:id="@+id/listViewParcel" />
     </LinearLayout>
 
