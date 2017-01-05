@@ -8,10 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.example.iem.cirad.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class dashBoardActivity extends AppCompatActivity {
+
+    private ListView listviewParcel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,65 @@ public class dashBoardActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        setTitle("Tableau de bord");
+
+
+        listviewParcel = (ListView)findViewById(R.id.listViewParcel);
+
+        //Création de la ArrayList qui nous permettra de remplire la listView
+        ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
+
+        //On déclare la HashMap qui contiendra les informations pour un item
+        HashMap<String, String> map;
+
+        map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 24");
+        map.put("date", "12/12/2013");
+        listItem.add(map);
+
+        map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 14");
+        map.put("date", "14/14/2014");
+        listItem.add(map);
+
+        map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map); map = new HashMap<String, String>();
+        map.put("img", String.valueOf(R.drawable.ic_brightness_1_black_24px));
+        map.put("parcel", "Parcelle 1");
+        map.put("date", "01/01/2001");
+        listItem.add(map);
+
+
+        SimpleAdapter listviewadapter = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.dashboardadapter,
+                new String[] {"img","parcel", "date"}, new int[] {R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
+
+        listviewParcel.setAdapter(listviewadapter);
+
     }
 
     @Override
