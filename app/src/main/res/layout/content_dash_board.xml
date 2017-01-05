@@ -13,8 +13,25 @@
     tools:context="com.example.iem.cirad.dashBoardActivity"
     tools:showIn="@layout/activity_dash_board">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:text="Recapitulatif des parcelles saisies non synchronisées :"
+            android:textColor="@android:color/black"
+            android:fontFamily="sans-serif"
+            android:layout_weight="0.04" />
+
+        <ListView
+            android:layout_marginTop="15pt"
+            android:layout_width="match_parent"
+            android:layout_height="473dp"
+            android:id="@+id/listViewParcel" />
+    </LinearLayout>
+
 </RelativeLayout>
