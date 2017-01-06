@@ -11,7 +11,7 @@ public class Action  {
     private int Id;
     private String Name;
     private int EmergencyLevel;
-    private boolean isTreatment;
+    private int isTreatment; //0 false and 1 true
     private int TreatmentLevel;
     private String Remark;
     private Date DateMeasure;
@@ -19,11 +19,20 @@ public class Action  {
     public Action() {
     }
 
-    public Action(int id, String name, int emergencyLevel, boolean isTraitment, int treatmentLevel, String remark, Date dateMeasure) {
+    public Action(String name, int emergencyLevel, int isTreatment, int treatmentLevel, String remark, Date dateMeasure) {
+        Name = name;
+        EmergencyLevel = emergencyLevel;
+        this.isTreatment = isTreatment;
+        TreatmentLevel = treatmentLevel;
+        Remark = remark;
+        DateMeasure = dateMeasure;
+    }
+
+    public Action(int id, String name, int emergencyLevel, int isTreatment, int treatmentLevel, String remark, Date dateMeasure) {
         Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
-        this.isTreatment = isTraitment;
+        this.isTreatment = isTreatment;
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
@@ -53,12 +62,12 @@ public class Action  {
         EmergencyLevel = emergencyLevel;
     }
 
-    public boolean isTreatment() {
+    public int getIsTreatment() {
         return isTreatment;
     }
 
-    public void setTreatment(boolean traitment) {
-        isTreatment = traitment;
+    public void setIsTreatment(int isTreatment) {
+        this.isTreatment = isTreatment;
     }
 
     public int getTreatmentLevel() {

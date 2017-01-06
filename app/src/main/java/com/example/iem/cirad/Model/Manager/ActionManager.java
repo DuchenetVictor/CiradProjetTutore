@@ -25,8 +25,9 @@ public class ActionManager {
 
     private static final String TABLE_NAME_ACTION = "Action";
     private static final String KEY_ID_ACTION = "Id";
+    private static final String KEY_NAME_ACTION = "Name";
     private static final String KEY_EMERGENCYLEVEL_ACTION = "EmergencyLevel";
-    private static final String KEY_ISTREATMENT_ACTION = "isTreatment";//todo gere le probleme conversion boolean
+    private static final String KEY_ISTREATMENT_ACTION = "isTreatment";
     private static final String KEY_TREATMENTLEVEL_ACTION = "TreatmentLevel";
     private static final String KEY_REMARK_ACTION = "Remark";
     private static final String KEY_DATEMEASURE_ACTION = "DateMeasure";
@@ -55,35 +56,54 @@ public class ActionManager {
     public ArrayList<Action> getActions() {
 
         ArrayList<Action> actions = new ArrayList<>();
-        Action action = new Action();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME_ACTION, null);
-
-
         try {
-            if (cursor.moveToNext()) {
-                action.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_ACTION)));
+            /*if (cursor.moveToNext())
+            do{
+                Action action = new Action();
+
+                action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
                 action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
+                action.setIsTreatment(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
                 action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
                 action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
-                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));///todo getString pour une date ...
+                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
+
+                actions.add(action);
+            } while(cursor.moveToNext());
+            */
+            cursor.moveToFirst();
+            while (!cursor.isLast()){
+                Action action = new Action();
+
+                action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
+                action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
+                action.setIsTreatment(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
+                action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
+                action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
+                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
 
                 actions.add(action);
             }
+
         }
         finally {
             cursor.close();
         }
-
         return actions;
     }
 
-    public void SetAction(Action action){
-            ContentValues values = new ContentValues();
-            //on lui ajoute une valeur associé à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
-            values.put(COL_ISBN, livre.getIsbn());
-            values.put(COL_TITRE, livre.getTitre());
-            //on insère l'objet dans la BDD via le ContentValues
-            return bdd.insert(TABLE_LIVRES, null, values);
+    public long SetAction(Action action){
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME_ACTION, action.getName());
+        values.put(KEY_EMERGENCYLEVEL_ACTION, action.getEmergencyLevel());
+        values.put(KEY_ISTREATMENT_ACTION, action.getIsTreatment());
+        values.put(KEY_TREATMENTLEVEL_ACTION,action.getTreatmentLevel());
+        values.put(KEY_REMARK_ACTION,action.getRemark());
+        values.put(KEY_DATEMEASURE_ACTION,action.getDateMeasure().toString());
+
+        //on insère l'objet dans la BDD via le ContentValues
+        return db.insert(TABLE_NAME_ACTION, null, values);
     }
 }

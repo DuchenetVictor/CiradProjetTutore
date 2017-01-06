@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.example.iem.cirad.Model.Manager.ActionManager;
 import com.example.iem.cirad.Model.Pojo.Action;
-
 import com.example.iem.cirad.R;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,16 +33,6 @@ public class dashBoardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle("Tableau de bord");
-
-        ActionManager.getInstance(this)
-
-        listviewParcel = (ListView)findViewById(R.id.listViewParcel);
-
-        ActionManager.getInstance(this).getActions();
-
-
-
-
 
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -89,6 +78,7 @@ public class dashBoardActivity extends AppCompatActivity {
         map.put("date", "01/01/2001");
         listItem.add(map);
 
+        listviewParcel = (ListView)findViewById(R.id.listViewParcel);
         SimpleAdapter listviewadapter = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.dashboardadapter,
                 new String[] {"img","parcel", "date"}, new int[] {R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
 
@@ -116,8 +106,13 @@ public class dashBoardActivity extends AppCompatActivity {
                                     View view, int position, long id) {
 
                 //TODO
-                /*Action action = new Action();
-                ArrayList<String> array = new ArrayList<>();
+                Action action = new Action();
+                action.setRemark("sssss");
+                String test ;
+                String toto = "d";
+                test = toto;
+
+               /* ArrayList<String> array = new ArrayList<>();
                 Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
 
                 myIntent.putExtra("key", action.inArray());
@@ -125,9 +120,12 @@ public class dashBoardActivity extends AppCompatActivity {
                 startActivity(myIntent);*/
             }
         });
+        Date Datemeasurment = new Date(201111111);
+        Action action = new Action("Name655",1,0,2,"REMARK",Datemeasurment);
 
-
-
+        long id  = ActionManager.getInstance(this).SetAction(action);
+        ArrayList<Action> actions  = ActionManager.getInstance(this).getActions();
+        Long sdqsdqs;
     }
 
 
