@@ -1,5 +1,6 @@
 package com.example.iem.cirad.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import com.example.iem.cirad.Pojo.Action;
 
 import com.example.iem.cirad.R;
 
@@ -20,6 +23,7 @@ public class dashBoardActivity extends AppCompatActivity {
 
     private ListView listviewParcel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,37 +31,26 @@ public class dashBoardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         setTitle("Tableau de bord");
 
 
         listviewParcel = (ListView)findViewById(R.id.listViewParcel);
 
+
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
-
         //On déclare la HashMap qui contiendra les informations pour un item
         HashMap<String, String> map;
-
         map = new HashMap<String, String>();
         map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
         map.put("parcel", "Parcelle 24");
         map.put("date", "12/12/2013");
         listItem.add(map);
-
         map = new HashMap<String, String>();
         map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
         map.put("parcel", "Parcelle 14");
         map.put("date", "14/14/2014");
         listItem.add(map);
-
         map = new HashMap<String, String>();
         map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
         map.put("parcel", "Parcelle 1");
@@ -93,6 +86,21 @@ public class dashBoardActivity extends AppCompatActivity {
                 new String[] {"img","parcel", "date"}, new int[] {R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
 
         listviewParcel.setAdapter(listviewadapter);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Action action = new Action();
+                ArrayList<String> array = new ArrayList<>();
+                Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
+
+                myIntent.putExtra("key", action.inArray());
+
+                startActivity(myIntent);
+            }
+        });
 
     }
 

@@ -1,13 +1,14 @@
 package com.example.iem.cirad.Pojo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by iem on 05/01/2017.
  */
 
-public class Action {
-    private int id;
+public class Action  {
+    private int Id;
     private String Name;
     private int EmergencyLevel;
     private boolean isTraitment;
@@ -15,8 +16,11 @@ public class Action {
     private String Remark;
     private Date DateMeasure;
 
+    public Action() {
+    }
+
     public Action(int id, String name, int emergencyLevel, boolean isTraitment, int treatmentLevel, String remark, Date dateMeasure) {
-        this.id = id;
+        Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
         this.isTraitment = isTraitment;
@@ -26,11 +30,11 @@ public class Action {
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getName() {
@@ -80,4 +84,26 @@ public class Action {
     public void setDateMeasure(Date dateMeasure) {
         DateMeasure = dateMeasure;
     }
+
+    public ArrayList<String> inArray(){
+
+        ArrayList<String> array = new ArrayList<>();
+        if (Id == 0 && Name == "")
+        {
+            return null;
+        }
+        else
+        {
+            array.add(String.valueOf(Id));
+            array.add(Name);
+            array.add(String.valueOf(EmergencyLevel));
+            array.add(String.valueOf(isTraitment));
+            array.add(String.valueOf(TreatmentLevel));
+            array.add(Remark);
+            array.add(String.valueOf(DateMeasure));
+
+            return array;
+        }
+    }
+
 }
