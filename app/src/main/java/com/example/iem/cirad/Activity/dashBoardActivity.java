@@ -12,8 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.iem.cirad.Controller.MySQLite;
 import com.example.iem.cirad.Model.Manager.ActionManager;
+import com.example.iem.cirad.Model.Manager.ParcelManager;
 import com.example.iem.cirad.Model.Pojo.Action;
+import com.example.iem.cirad.Model.Pojo.Parcel;
 import com.example.iem.cirad.R;
 
 import java.sql.Date;
@@ -33,6 +36,14 @@ public class dashBoardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle("Tableau de bord");
+
+        Parcel parcel = new Parcel(1,"Parcelle 12");
+        Parcel parcel1 = new Parcel(2,"Parcelle 22");
+        Long id =ParcelManager.getInstance(this).setParcel(parcel);
+        Long ii = ParcelManager.getInstance(this).setParcel(parcel1);
+
+        ArrayList<Parcel> parcels =  ParcelManager.getInstance(this).getParcels();
+
 
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
@@ -120,10 +131,11 @@ public class dashBoardActivity extends AppCompatActivity {
                 startActivity(myIntent);*/
             }
         });
+
         Date Datemeasurment = new Date(201111111);
         Action action = new Action("Name655",1,0,2,"REMARK",Datemeasurment);
 
-        long id  = ActionManager.getInstance(this).SetAction(action);
+        long idt  = ActionManager.getInstance(this).SetAction(action);
         ArrayList<Action> actions  = ActionManager.getInstance(this).getActions();
         Long sdqsdqs;
     }

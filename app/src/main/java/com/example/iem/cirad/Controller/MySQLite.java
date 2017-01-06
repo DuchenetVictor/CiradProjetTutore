@@ -103,15 +103,24 @@ public class MySQLite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE `Action` ("+
-        "`Id` INTEGER PRIMARY KEY AUTOINCREMENT,"+
-        "`Name` TEXT NOT NULL,"+
-        "`Emergencylevel` INTEGER NOT NULL,"+
-        "`isTreatment` INTEGER NOT NULL,"+
-        "`TreatmentLevel` INTEGER,"+
-        "`Remark` TEXT,"+
-        "`DateMeasure` TEXT NOT NULL)");
+                "           `Id` INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "           `Name` TEXT NOT NULL,"+
+                "           `EmergencyLevel` INTEGER NOT NULL,"+
+                "           `isTreatment` INTEGER NOT NULL,"+
+                "           `TreatmentLevel` INTEGER,"+
+                "           `Remark` TEXT,"+
+                "           `DateMeasure` TEXT NOT NULL)");
 
+        db.execSQL("CREATE TABLE `Parcel` ( " +
+                "        `Id` INTEGER NOT NULL, " +
+                "        `Name` TEXT NOT NULL, " +
+                "        `Latitude` TEXT," +
+                "        `Longitude` TEXT," +
+                "        PRIMARY KEY(`Id`) " +
+                "        )");
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -11,7 +11,6 @@ import com.example.iem.cirad.Model.Pojo.Action;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by iem on 08/11/2016.
@@ -59,34 +58,22 @@ public class ActionManager {
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME_ACTION, null);
         try {
-            /*if (cursor.moveToNext())
+            cursor.moveToFirst();
             do{
                 Action action = new Action();
-
+                action.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_ACTION)));
                 action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
                 action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
-                action.setIsTreatment(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
+                action.setIsTreatment(cursor.getInt(cursor.getColumnIndex(KEY_ISTREATMENT_ACTION)));
                 action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
                 action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
                 action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
 
                 actions.add(action);
             } while(cursor.moveToNext());
-            */
-            cursor.moveToFirst();
-            while (!cursor.isLast()){
-                Action action = new Action();
-
-                action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
-                action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
-                action.setIsTreatment(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
-                action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
-                action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
-                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
-
-                actions.add(action);
-            }
-
+        }
+        catch (Exception e) {
+            Log.d("bdd", e.getMessage());
         }
         finally {
             cursor.close();

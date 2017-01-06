@@ -11,6 +11,14 @@ public class Parcel {
     private String Latitude;
     private String Longitude;
 
+    public Parcel() {
+    }
+
+    public Parcel(int id, String name) {
+        Name = name;
+        Id = id;
+    }
+
     public Parcel(int id, String name, String latitude, String longitude) {
         Id = id;
         Name = name;
