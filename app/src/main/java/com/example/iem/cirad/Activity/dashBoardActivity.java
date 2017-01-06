@@ -3,16 +3,18 @@ package com.example.iem.cirad.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import com.example.iem.cirad.Pojo.Action;
+
+import com.example.iem.cirad.Model.Manager.ActionManager;
+import com.example.iem.cirad.Model.Pojo.Action;
 
 import com.example.iem.cirad.R;
 
@@ -33,8 +35,14 @@ public class dashBoardActivity extends AppCompatActivity {
 
         setTitle("Tableau de bord");
 
+        ActionManager.getInstance(this)
 
         listviewParcel = (ListView)findViewById(R.id.listViewParcel);
+
+        ActionManager.getInstance(this).getActions();
+
+
+
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
@@ -81,7 +89,6 @@ public class dashBoardActivity extends AppCompatActivity {
         map.put("date", "01/01/2001");
         listItem.add(map);
 
-
         SimpleAdapter listviewadapter = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.dashboardadapter,
                 new String[] {"img","parcel", "date"}, new int[] {R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
 
@@ -102,7 +109,28 @@ public class dashBoardActivity extends AppCompatActivity {
             }
         });
 
+        listviewParcel.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //TODO
+                /*Action action = new Action();
+                ArrayList<String> array = new ArrayList<>();
+                Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
+
+                myIntent.putExtra("key", action.inArray());
+
+                startActivity(myIntent);*/
+            }
+        });
+
+
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

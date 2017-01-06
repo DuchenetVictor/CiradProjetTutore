@@ -1,4 +1,4 @@
-package com.example.iem.cirad.Pojo;
+package com.example.iem.cirad.Model.Pojo;
 
 /**
  * Created by iem on 05/01/2017.

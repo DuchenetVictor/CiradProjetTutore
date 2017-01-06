@@ -1,4 +1,4 @@
-package com.example.iem.cirad.Pojo;
+package com.example.iem.cirad.Model.Pojo;
 
 import java.sql.Blob;
 

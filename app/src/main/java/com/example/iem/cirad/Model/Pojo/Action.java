@@ -1,4 +1,4 @@
-package com.example.iem.cirad.Pojo;
+package com.example.iem.cirad.Model.Pojo;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Action  {
     private int Id;
     private String Name;
     private int EmergencyLevel;
-    private boolean isTraitment;
+    private boolean isTreatment;
     private int TreatmentLevel;
     private String Remark;
     private Date DateMeasure;
@@ -23,7 +23,7 @@ public class Action  {
         Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
-        this.isTraitment = isTraitment;
+        this.isTreatment = isTraitment;
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
@@ -53,12 +53,12 @@ public class Action  {
         EmergencyLevel = emergencyLevel;
     }
 
-    public boolean isTraitment() {
-        return isTraitment;
+    public boolean isTreatment() {
+        return isTreatment;
     }
 
-    public void setTraitment(boolean traitment) {
-        isTraitment = traitment;
+    public void setTreatment(boolean traitment) {
+        isTreatment = traitment;
     }
 
     public int getTreatmentLevel() {
@@ -97,7 +97,7 @@ public class Action  {
             array.add(String.valueOf(Id));
             array.add(Name);
             array.add(String.valueOf(EmergencyLevel));
-            array.add(String.valueOf(isTraitment));
+            array.add(String.valueOf(isTreatment));
             array.add(String.valueOf(TreatmentLevel));
             array.add(Remark);
             array.add(String.valueOf(DateMeasure));
