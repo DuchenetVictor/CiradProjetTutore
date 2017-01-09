@@ -1,6 +1,7 @@
 package com.example.iem.cirad.Activity;
 
 import android.content.Intent;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,12 @@ import android.widget.SimpleAdapter;
 
 import com.example.iem.cirad.Controller.MySQLite;
 import com.example.iem.cirad.Model.Manager.ActionManager;
+import com.example.iem.cirad.Model.Manager.MeasurementManager;
 import com.example.iem.cirad.Model.Manager.ParcelManager;
+import com.example.iem.cirad.Model.Manager.UserManager;
 import com.example.iem.cirad.Model.Pojo.Action;
 import com.example.iem.cirad.Model.Pojo.Parcel;
+import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
 
 import java.sql.Date;
@@ -37,22 +41,52 @@ public class dashBoardActivity extends AppCompatActivity {
 
         setTitle("Tableau de bord");
 
-        Parcel parcel = new Parcel(1,"Parcelle 12");
-        Parcel parcel1 = new Parcel(2,"Parcelle 22");
-        Long id =ParcelManager.getInstance(this).setParcel(parcel);
-        Long ii = ParcelManager.getInstance(this).setParcel(parcel1);
 
-        ArrayList<Parcel> parcels =  ParcelManager.getInstance(this).getParcels();
+        Parcel parcel = new Parcel(1,"Parcelle 12","dd","dd");
+        Parcel parcel1 = new Parcel(2,"Parcelle 22");
+        User user = new User(1,"mathieu","123",Boolean.FALSE);
+
+//        public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
+//        public Action(String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idParcel, int idUser) {
+//        public Action(int id, String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
+
+        Date date = new Date(213132121);
+        Action action1 = new Action(1,"labourer",1,Boolean.FALSE,"sdfdbfq,fqsdf",date,1,1);
+
+        Action action2 = new Action(2,"TRaitement anti fongique",3,Boolean.TRUE,0,"ce dépecher de faire le traitemzent",date,1,1);
+        Action action3 = new Action(3,"TRaitement anti clement",3,Boolean.TRUE,0,"ce dépecher de faire le traitemzent",date,1,1);
+
+
+        Long parcelid = ParcelManager.getInstance(this).setParcel(parcel);
+        Long parcel1id = ParcelManager.getInstance(this).setParcel(parcel1);
+        Long userid = UserManager.getInstance(this).setUser(user);
+         ArrayList<Action> actionssss = new ArrayList<>();
+        actionssss.add(action1);
+        actionssss.add(action2);
+        actionssss.add(action3);
+        MeasurementManager.getInstance(this).setMeasure(actionssss,parcel);
+        ArrayList<Action> actionsinparcel = MeasurementManager.getInstance(this).getActionsInParcel(parcel);
+
+
+
+
+
+
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         //On déclare la HashMap qui contiendra les informations pour un item
         HashMap<String, String> map;
+
+        ArrayList<Parcel> parcels = new ArrayList<>();
+        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
+//
+//        for (Parcel parcelNotSynchro : parcels) {
+//
+//        }
+
         map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 24");
-        map.put("date", "12/12/2013");
         listItem.add(map);
         map = new HashMap<String, String>();
         map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
@@ -131,13 +165,6 @@ public class dashBoardActivity extends AppCompatActivity {
                 startActivity(myIntent);*/
             }
         });
-
-        Date Datemeasurment = new Date(201111111);
-        Action action = new Action("Name655",1,0,2,"REMARK",Datemeasurment);
-
-        long idt  = ActionManager.getInstance(this).SetAction(action);
-        ArrayList<Action> actions  = ActionManager.getInstance(this).getActions();
-        Long sdqsdqs;
     }
 
 
