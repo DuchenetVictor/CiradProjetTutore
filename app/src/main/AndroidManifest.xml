@@ -16,18 +16,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.detailsActionActivity"
-            android:label="@string/title_activity_details_action"
-            android:theme="@style/AppTheme.NoActionBar"
-           >
+            android:name=".Activity.LoginActivity"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:name=".Activity.detailsActionActivity"
+            android:label="@string/title_activity_details_action"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".Activity.dashBoardActivity"
@@ -38,3 +37,6 @@
     </application>
 
 </manifest>
+
+
+
