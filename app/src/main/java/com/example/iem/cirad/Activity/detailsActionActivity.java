@@ -1,27 +1,59 @@
 package com.example.iem.cirad.Activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iem.cirad.R;
 
+import java.io.ByteArrayOutputStream;
+
 public class detailsActionActivity extends AppCompatActivity {
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.title_activity_details_action);
         setContentView(R.layout.activity_details_action);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        dispatchTakePictureIntent();
+        validationAction();
+        seekBarUrgence();
+        seekBarNivTraitement();
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+    private void dispatchTakePictureIntent(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnPicture);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+    }
+
+
+    private void validationAction(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btnOk);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,12 +61,7 @@ public class detailsActionActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        setTitle(R.string.title_activity_details_action);
-        seekBarUrgence();
-        seekBarNivTraitement();
     }
-
-
     private void seekBarUrgence(){
          SeekBar sbLvlAlerte = (SeekBar) findViewById(R.id.sbLvlAlerte);
        final TextView tvLvlAlert = (TextView) findViewById(R.id.tvLvlAlert);;
@@ -109,6 +136,29 @@ public class detailsActionActivity extends AppCompatActivity {
         });
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
+            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.pictureContainer);
+
+            ImageView ivPicture = new ImageView(detailsActionActivity.this);
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(5,0,10,0);
+            ivPicture.setLayoutParams(lp);
+
+            ivPicture.setImageBitmap(imageBitmap);
+            linearLayout.addView(ivPicture);
+
+
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
+            byte [] byte_arr = stream.toByteArray();
+            String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT);
+        }
+    }
 
 }
