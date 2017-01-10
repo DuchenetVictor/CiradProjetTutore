@@ -11,24 +11,35 @@ public class Action  {
     private int Id;
     private String Name;
     private int EmergencyLevel;
-    private int isTreatment; //0 false and 1 true
+    private boolean isTreatment;
     private int TreatmentLevel;
     private String Remark;
     private Date DateMeasure;
+    private int IdUser;
 
     public Action() {
     }
 
-    public Action(String name, int emergencyLevel, int isTreatment, int treatmentLevel, String remark, Date dateMeasure) {
+    public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Name = name;
         EmergencyLevel = emergencyLevel;
         this.isTreatment = isTreatment;
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
+        IdUser = idUser;
     }
 
-    public Action(int id, String name, int emergencyLevel, int isTreatment, int treatmentLevel, String remark, Date dateMeasure) {
+    public Action(String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idUser) {
+        Name = name;
+        EmergencyLevel = emergencyLevel;
+        this.isTreatment = isTreatment;
+        Remark = remark;
+        DateMeasure = dateMeasure;
+        IdUser = idUser;
+    }
+
+    public Action(int id, String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
@@ -36,6 +47,17 @@ public class Action  {
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
+        IdUser = idUser;
+    }
+
+    public Action(int id, String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idUser) {
+        Id = id;
+        Name = name;
+        EmergencyLevel = emergencyLevel;
+        this.isTreatment = isTreatment;
+        Remark = remark;
+        DateMeasure = dateMeasure;
+        IdUser = idUser;
     }
 
     public int getId() {
@@ -62,11 +84,11 @@ public class Action  {
         EmergencyLevel = emergencyLevel;
     }
 
-    public int getIsTreatment() {
+    public boolean getIsTreatment() {
         return isTreatment;
     }
 
-    public void setIsTreatment(int isTreatment) {
+    public void setIsTreatment(boolean isTreatment) {
         this.isTreatment = isTreatment;
     }
 
@@ -86,6 +108,7 @@ public class Action  {
         Remark = remark;
     }
 
+
     public Date getDateMeasure() {
         return DateMeasure;
     }
@@ -93,6 +116,15 @@ public class Action  {
     public void setDateMeasure(Date dateMeasure) {
         DateMeasure = dateMeasure;
     }
+
+    public int getIdUser() {
+        return IdUser;
+    }
+
+    public void setIdUser(int idUser) {
+        IdUser = idUser;
+    }
+
 
     public ArrayList<String> inArray(){
 
@@ -110,6 +142,7 @@ public class Action  {
             array.add(String.valueOf(TreatmentLevel));
             array.add(Remark);
             array.add(String.valueOf(DateMeasure));
+            array.add((String.valueOf(IdUser)));
 
             return array;
         }

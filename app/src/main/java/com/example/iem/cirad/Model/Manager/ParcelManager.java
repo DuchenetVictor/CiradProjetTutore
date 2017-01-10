@@ -21,9 +21,11 @@ public class ParcelManager {
     private SQLiteDatabase db;
     private MySQLite maBaseSQLite;
 
-    private static final String TABLE_NAME_PARCEL = "Parcel";
-    private static final String KEY_ID_PARCEL = "Id";
-    private static final String KEY_NAME_PARCEL = "Name";
+    public static final String TABLE_NAME_PARCEL = "Parcel";
+    public static final String KEY_ID_PARCEL = "Id";
+    public static final String KEY_NAME_PARCEL = "Name";
+    public static final String KEY_LONGITUDE_PARCEL = "Longitude";
+    public static final String KEY_LATITUDE_PARCEL = "Latitude";
 
     // Singleton
     public static synchronized ParcelManager getInstance(Context context) {
@@ -32,7 +34,6 @@ public class ParcelManager {
         }
         return sInstance;
     }
-
 
     private ParcelManager(Context context) {
         maBaseSQLite = MySQLite.getInstance(context);
@@ -56,6 +57,8 @@ public class ParcelManager {
                 Parcel parcel = new Parcel();
                 parcel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_PARCEL)));
                 parcel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_PARCEL)));
+                parcel.setLongitude(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE_PARCEL)));
+                parcel.setLatitude(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE_PARCEL)));
                 parcels.add(parcel);
 
             } while (cursor.moveToNext());
@@ -71,7 +74,10 @@ public class ParcelManager {
         ContentValues values = new ContentValues();
         values.put(KEY_ID_PARCEL, parcel.getId());
         values.put(KEY_NAME_PARCEL, parcel.getName());
+        values.put(KEY_LONGITUDE_PARCEL, parcel.getLongitude());
+        values.put(KEY_LATITUDE_PARCEL,parcel.getLatitude());
+
         //on insère l'objet dans la BDD via le ContentValues
-        return db.insert(TABLE_NAME_PARCEL, null, values);
+        return db.replace(TABLE_NAME_PARCEL, null, values);
     }
 }

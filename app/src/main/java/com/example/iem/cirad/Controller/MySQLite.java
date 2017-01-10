@@ -109,15 +109,29 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `isTreatment` INTEGER NOT NULL,"+
                 "           `TreatmentLevel` INTEGER,"+
                 "           `Remark` TEXT,"+
-                "           `DateMeasure` TEXT NOT NULL)");
+                "           `DateMeasure` TEXT NOT NULL," +
+                "           `Id_User` INTEGER NOT NULL)");
 
         db.execSQL("CREATE TABLE `Parcel` ( " +
-                "        `Id` INTEGER NOT NULL, " +
-                "        `Name` TEXT NOT NULL, " +
-                "        `Latitude` TEXT," +
-                "        `Longitude` TEXT," +
-                "        PRIMARY KEY(`Id`) " +
-                "        )");
+                "           `Id` INTEGER NOT NULL, " +
+                "           `Name` TEXT NOT NULL, " +
+                "           `Latitude` TEXT," +
+                "           `Longitude` TEXT," +
+                "           PRIMARY KEY(`Id`))");
+
+        db.execSQL("CREATE TABLE `Measurement` ( " +
+                "           `Id_Parcel` INTEGER NOT NULL,"+
+                "           `Id_Action` INTEGER NOT NULL,"+
+                "           `isSynchro` INTEGER NOT NULL,"+
+                "           PRIMARY KEY(`Id_Action`,`Id_Parcel`,isSynchro))");
+
+
+        db.execSQL("CREATE TABLE `User` (" +
+                "           `Id` INTEGER,"+
+                "           `Login` TEXT NOT NULL,"+
+                "           `Password` TEXT NOT NULL,"+
+                "           `isChief` INTEGER NOT NULL,"+
+                "           PRIMARY KEY(`Id`))");
     }
 
 

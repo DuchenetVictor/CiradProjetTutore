@@ -9,12 +9,17 @@ public class User {
     private int Id;
     private String Login;
     private String Password;
+    private Boolean isChief;
 
-    public User(int id, String login, String password) {
+    public User() {    }
+
+    public User(int id, String login, String password, Boolean isChief) {
         Id = id;
         Login = login;
         Password = password;
+        this.isChief = isChief;
     }
+
 
     public int getId() {
         return Id;
@@ -38,5 +43,13 @@ public class User {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public Boolean getIsChief() {
+        return isChief;
+    }
+
+    public void setIsChief(Boolean isChief) {
+        isChief = isChief;
     }
 }
