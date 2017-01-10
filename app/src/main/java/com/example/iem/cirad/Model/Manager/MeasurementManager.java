@@ -101,7 +101,7 @@ public class MeasurementManager {
     }
 
 
-    // TODO: 10/01/2017 didn't work  getActionsInParcel
+
     public ArrayList<Action> getActionsInParcel(Parcel parcel, boolean synch) {
 
         ArrayList<Action> actions = new ArrayList<>();
