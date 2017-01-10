@@ -61,93 +61,96 @@ public class MeasurementManager {
         db.close();
     }
 
-    //// TODO: 09/01/2017 faire le changement de statue issynchro a la synchro
-    public void setMeasure (ArrayList<Action> actions, Parcel parcel){
+
+    public void setMeasure(ArrayList<Action> actions, Parcel parcel) {
         ContentValues values = new ContentValues();
-        for (Action action : actions ) {
+        for (Action action : actions) {
             values.put(KEY_IDACTION_MEASUREMENT, action.getId());
             values.put(KEY_IDPARCEL_MEASUREMENT, parcel.getId());
-            values.put(KEY_ISSYNCHRO_ACTION,Boolean.FALSE);
+            values.put(KEY_ISSYNCHRO_MEASUREMENT, Boolean.FALSE);
 
             //on insère l'objet dans la BDD via le ContentValues
             db.replace(TABLE_NAME_MEASUREMENT, null, values);
         }
     }
 
+    public Date getLastDateInMeasurement(Parcel parcel, boolean synch) {
+        ArrayList<Action> actions = new ArrayList<>();
+        Date dateYoungest = new Date(0);
 
-    public ArrayList<Action> getActionsInParcel(Parcel parcel){
-
-        ArrayList<Integer> idActions =new ArrayList<>();
-        ArrayList<Action> actions= new ArrayList<>();
-
-        Cursor cursor = db.rawQuery("   SELECT * " +
-                "   FROM " + TABLE_NAME_MEASUREMENT+
-                "   WHERE " +KEY_IDPARCEL_MEASUREMENT+ " = ?" , new String[]{String.valueOf(parcel.getId())});
+        Cursor cursor = db.rawQuery("   SELECT " + TABLE_NAME_ACTION + "." + KEY_DATEMEASURE_ACTION +
+                "   FROM " + TABLE_NAME_MEASUREMENT + ", " + TABLE_NAME_ACTION +
+                "   WHERE " + TABLE_NAME_ACTION + "." + KEY_ID_ACTION + " = " + TABLE_NAME_MEASUREMENT + "." + KEY_IDACTION_MEASUREMENT +
+                "   AND " + KEY_IDPARCEL_MEASUREMENT + " = ?" +
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getId()), String.valueOf(booleanToInt(synch))});
 
         try {
             cursor.moveToFirst();
-            do{
-                idActions.add(cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_MEASUREMENT)));
-
-            } while(cursor.moveToNext());
-        }
-        catch (Exception e) {
+            do {
+                Date dateAction = Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION)));
+                if (dateYoungest.after(dateAction)) {
+                    dateYoungest = dateAction;
+                }
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
             Log.d("bdd", e.getMessage());
-        }
-        finally {
+        } finally {
             cursor.close();
         }
+        return dateYoungest;
+    }
 
 
-        for (int i = 0;i <idActions.size();i++) {
+    // TODO: 10/01/2017 didn't work  getActionsInParcel
+    public ArrayList<Action> getActionsInParcel(Parcel parcel, boolean synch) {
 
-            Cursor cursor1 = db.rawQuery("  SELECT * " +
-                        "   FROM "+ TABLE_NAME_ACTION+
-                        "   WHERE "+ KEY_ID_ACTION+ " = ?" , new String[]{String.valueOf(idActions.get(i))});
+        ArrayList<Action> actions = new ArrayList<>();
 
-            try {
-                cursor1.moveToFirst();
-                do{
-                    Action action = new Action();
+        //get all actions in Table Measurement, with id of parcel and synch in param
+        Cursor cursor = db.rawQuery("   SELECT " + TABLE_NAME_ACTION + ".*" +
+                "   FROM " + TABLE_NAME_MEASUREMENT + ", " + TABLE_NAME_ACTION +
+                "   WHERE " + TABLE_NAME_ACTION + "." + KEY_ID_ACTION + " = " + TABLE_NAME_MEASUREMENT + "." + KEY_IDACTION_MEASUREMENT +
+                "   AND " + KEY_IDPARCEL_MEASUREMENT + " = ?" +
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getId()), String.valueOf(booleanToInt(synch))});
 
-                    action.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_ACTION)));
-                    action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
-                    action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
-                    action.setIsTreatment(intToBoolean(cursor.getInt(cursor.getColumnIndex(KEY_ISTREATMENT_ACTION))));
-                    action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
-                    action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
-                    action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
-                    action.setIdParcel(cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_ACTION)));
-                    action.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_IDUSER_ACTION)));
 
-                    actions.add(action);
+        try {
+            cursor.moveToFirst();
+            do {
+                Action action = new Action();
+                action.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_ACTION)));
+                action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
+                action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
+                action.setIsTreatment(intToBoolean(cursor.getInt(cursor.getColumnIndex(KEY_ISTREATMENT_ACTION))));
+                action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
+                action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
+                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
+                action.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_IDUSER_ACTION)));
 
-                } while(cursor1.moveToNext());
-            }
-            catch (Exception e) {
-                Log.d("bdd", e.getMessage());
-            }
-            finally {
-                cursor1.close();
-            }
+                actions.add(action);
+
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
+            Log.d("bdd", e.getMessage());
+        } finally {
+            cursor.close();
         }
         return actions;
     }
-
 
     public ArrayList<Parcel> getParcelsBySynchro(boolean bool) {
 
         ArrayList<Parcel> parcels = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("   SELECT * " +
-                "   FROM " + TABLE_NAME_PARCEL+", "+TABLE_NAME_MEASUREMENT+
-                "   WHERE "+TABLE_NAME_MEASUREMENT+"."+KEY_IDPARCEL_MEASUREMENT +" = "+ TABLE_NAME_PARCEL+"."+KEY_ID_PARCEL+
-                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?"+
-                "   GROUP BY " +KEY_IDPARCEL_MEASUREMENT, new String[]{String.valueOf(booleanToInt(bool))});
+                "   FROM " + TABLE_NAME_PARCEL + ", " + TABLE_NAME_MEASUREMENT +
+                "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = " + TABLE_NAME_PARCEL + "." + KEY_ID_PARCEL +
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?" +
+                "   GROUP BY " + KEY_IDPARCEL_MEASUREMENT, new String[]{String.valueOf(booleanToInt(bool))});
 
         try {
             cursor.moveToFirst();
-            do{
+            do {
                 Parcel parcel = new Parcel();
                 parcel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_PARCEL)));
                 parcel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_PARCEL)));
@@ -155,15 +158,42 @@ public class MeasurementManager {
                 parcel.setLatitude(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE_PARCEL)));
                 parcels.add(parcel);
 
-            } while(cursor.moveToNext());
-        }
-        catch (Exception e) {
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
             Log.d("bdd", e.getMessage());
-        }
-        finally {
+        } finally {
             cursor.close();
         }
         return parcels;
+    }
+
+    public void updateMeasurementSynchro(Parcel parcel){
+
+
+        Cursor cursor = db.rawQuery("   SELECT * " +
+                "   FROM " + TABLE_NAME_MEASUREMENT +
+                "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = ?"+
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getLatitude()),String.valueOf(booleanToInt(Boolean.FALSE))});
+        try {
+            cursor.moveToFirst();
+            do {
+                ContentValues contentvalues = new ContentValues();
+                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
+                contentvalues.put(KEY_IDPARCEL_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_MEASUREMENT)));
+                contentvalues.put(KEY_IDACTION_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
+
+                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
+                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
+                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
+
+                db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter, null);
+
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
+            Log.d("bdd", e.getMessage());
+        } finally {
+            cursor.close();
+        }
     }
 }
 

@@ -15,34 +15,31 @@ public class Action  {
     private int TreatmentLevel;
     private String Remark;
     private Date DateMeasure;
-    private int IdParcel;
     private int IdUser;
 
     public Action() {
     }
 
-    public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
+    public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Name = name;
         EmergencyLevel = emergencyLevel;
         this.isTreatment = isTreatment;
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
-        IdParcel = idParcel;
         IdUser = idUser;
     }
 
-    public Action(String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idParcel, int idUser) {
+    public Action(String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idUser) {
         Name = name;
         EmergencyLevel = emergencyLevel;
         this.isTreatment = isTreatment;
         Remark = remark;
         DateMeasure = dateMeasure;
-        IdParcel = idParcel;
         IdUser = idUser;
     }
 
-    public Action(int id, String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
+    public Action(int id, String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
@@ -50,18 +47,16 @@ public class Action  {
         TreatmentLevel = treatmentLevel;
         Remark = remark;
         DateMeasure = dateMeasure;
-        IdParcel = idParcel;
         IdUser = idUser;
     }
 
-    public Action(int id, String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idParcel, int idUser) {
+    public Action(int id, String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idUser) {
         Id = id;
         Name = name;
         EmergencyLevel = emergencyLevel;
         this.isTreatment = isTreatment;
         Remark = remark;
         DateMeasure = dateMeasure;
-        IdParcel = idParcel;
         IdUser = idUser;
     }
 
@@ -122,14 +117,6 @@ public class Action  {
         DateMeasure = dateMeasure;
     }
 
-    public int getIdParcel() {
-        return IdParcel;
-    }
-
-    public void setIdParcel(int idParcel) {
-        IdParcel = idParcel;
-    }
-
     public int getIdUser() {
         return IdUser;
     }
@@ -155,7 +142,6 @@ public class Action  {
             array.add(String.valueOf(TreatmentLevel));
             array.add(Remark);
             array.add(String.valueOf(DateMeasure));
-            array.add(String.valueOf(IdParcel));
             array.add((String.valueOf(IdUser)));
 
             return array;

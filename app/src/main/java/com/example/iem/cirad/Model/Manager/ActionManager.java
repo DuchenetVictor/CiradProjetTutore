@@ -12,6 +12,7 @@ import com.example.iem.cirad.Model.Pojo.Action;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import static com.example.iem.cirad.Helpers.BooleanHelper.booleanToInt;
 import static com.example.iem.cirad.Helpers.BooleanHelper.intToBoolean;
 
 /**
@@ -32,10 +33,8 @@ public class ActionManager {
     public  static final String KEY_ISTREATMENT_ACTION = "isTreatment";
     public  static final String KEY_TREATMENTLEVEL_ACTION = "TreatmentLevel";
     public  static final String KEY_REMARK_ACTION = "Remark";
-    public  static final String KEY_ISSYNCHRO_ACTION = "isSynchro";
     public  static final String KEY_DATEMEASURE_ACTION = "DateMeasure";
     public  static final String KEY_IDUSER_ACTION = "Id_User";
-    public  static final String KEY_IDPARCEL_ACTION = "Id_Parcel";
 
     // Singleton
     public static synchronized ActionManager getInstance(Context context) {
@@ -76,7 +75,6 @@ public class ActionManager {
                 action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
                 action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
                 action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
-                action.setIdParcel(cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_ACTION)));
                 action.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_IDUSER_ACTION)));
 
                 actions.add(action);
@@ -110,7 +108,6 @@ public class ActionManager {
                 action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
                 action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
                 action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
-                action.setIdParcel(cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_ACTION)));
                 action.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_IDUSER_ACTION)));
 
             } while(cursor.moveToNext());
@@ -124,18 +121,38 @@ public class ActionManager {
         return action;
     }
 
+    public void deleteActions(ArrayList<Action> actions)
+    {
+        for (Action action: actions) {
+            db.delete(TABLE_NAME_ACTION, KEY_ID_ACTION + "= ?" + action.getId(), null);
+        }
+    }
+
+    public void deleteAction(Action action)
+    {
+
+        db.delete(TABLE_NAME_ACTION, KEY_ID_ACTION + "= ?" + action.getId(), null);
+
+    }
+
     public long setAction(Action action){
         ContentValues values = new ContentValues();
+        long idaction = -1;
         values.put(KEY_NAME_ACTION, action.getName());
         values.put(KEY_EMERGENCYLEVEL_ACTION, action.getEmergencyLevel());
-        values.put(KEY_ISTREATMENT_ACTION, action.getIsTreatment());
+        values.put(KEY_ISTREATMENT_ACTION, booleanToInt(action.getIsTreatment()));
         values.put(KEY_TREATMENTLEVEL_ACTION,action.getTreatmentLevel());
         values.put(KEY_REMARK_ACTION,action.getRemark());
-        values.put(KEY_DATEMEASURE_ACTION,action.getDateMeasure().toString());
-        values.put(KEY_IDPARCEL_ACTION,action.getIdParcel());
+        values.put(KEY_DATEMEASURE_ACTION,String.valueOf(action.getDateMeasure()));
         values.put(KEY_IDUSER_ACTION,action.getIdUser());
 
         //on insère l'objet dans la BDD via le ContentValues
-        return db.insert(TABLE_NAME_ACTION, null, values);
+        try{
+           idaction =  db.replace(TABLE_NAME_ACTION, null, values);
+
+        }catch (Exception e){
+
+        }
+        return idaction;
     }
 }

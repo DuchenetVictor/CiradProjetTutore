@@ -110,7 +110,6 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `TreatmentLevel` INTEGER,"+
                 "           `Remark` TEXT,"+
                 "           `DateMeasure` TEXT NOT NULL," +
-                "           `Id_Parcel` INTEGER NOT NULL," +
                 "           `Id_User` INTEGER NOT NULL)");
 
         db.execSQL("CREATE TABLE `Parcel` ( " +
@@ -124,7 +123,7 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `Id_Parcel` INTEGER NOT NULL,"+
                 "           `Id_Action` INTEGER NOT NULL,"+
                 "           `isSynchro` INTEGER NOT NULL,"+
-                "           PRIMARY KEY(`Id_Action`,`Id_Parcel`))");
+                "           PRIMARY KEY(`Id_Action`,`Id_Parcel`,isSynchro))");
 
 
         db.execSQL("CREATE TABLE `User` (" +

@@ -1,7 +1,7 @@
 package com.example.iem.cirad.Activity;
 
 import android.content.Intent;
-import android.net.NetworkInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -41,37 +41,40 @@ public class dashBoardActivity extends AppCompatActivity {
 
         setTitle("Tableau de bord");
 
+        Parcel parcel = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
+        Parcel parcelSynch = new Parcel(2, "Parcelle Synch");
+        User user = new User(1, "mathieu", "123", Boolean.FALSE);
 
-        Parcel parcel = new Parcel(1,"Parcelle 12","dd","dd");
-        Parcel parcel1 = new Parcel(2,"Parcelle 22");
-        User user = new User(1,"mathieu","123",Boolean.FALSE);
-
-//        public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
-//        public Action(String name, int emergencyLevel, boolean isTreatment, String remark, Date dateMeasure, int idParcel, int idUser) {
-//        public Action(int id, String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idParcel, int idUser) {
+        ParcelManager.getInstance(this).setParcel(parcel);
+        ParcelManager.getInstance(this).setParcel(parcelSynch);
+        UserManager.getInstance(this).setUser(user);
 
         Date date = new Date(213132121);
-        Action action1 = new Action(1,"labourer",1,Boolean.FALSE,"sdfdbfq,fqsdf",date,1,1);
+        Action action1 = new Action("labourer", 1, Boolean.FALSE, "sdfdbfq,fqsdf", date, 1);
+        Action action2 = new Action("TRaitement anti fongique", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
+        Action action3 = new Action("TRaitement anti clement", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
 
-        Action action2 = new Action(2,"TRaitement anti fongique",3,Boolean.TRUE,0,"ce dépecher de faire le traitemzent",date,1,1);
-        Action action3 = new Action(3,"TRaitement anti clement",3,Boolean.TRUE,0,"ce dépecher de faire le traitemzent",date,1,1);
+        action1.setId((int) ActionManager.getInstance(this).setAction(action1));
+        action2.setId((int) ActionManager.getInstance(this).setAction(action2));
+        action3.setId((int) ActionManager.getInstance(this).setAction(action3));
+        ArrayList<Action> actionsnotSynch = new ArrayList<>();
 
-
-        Long parcelid = ParcelManager.getInstance(this).setParcel(parcel);
-        Long parcel1id = ParcelManager.getInstance(this).setParcel(parcel1);
-        Long userid = UserManager.getInstance(this).setUser(user);
-         ArrayList<Action> actionssss = new ArrayList<>();
-        actionssss.add(action1);
-        actionssss.add(action2);
-        actionssss.add(action3);
-        MeasurementManager.getInstance(this).setMeasure(actionssss,parcel);
-        ArrayList<Action> actionsinparcel = MeasurementManager.getInstance(this).getActionsInParcel(parcel);
+        actionsnotSynch.add(action1);
+        actionsnotSynch.add(action2);
+        actionsnotSynch.add(action3);
+        MeasurementManager.getInstance(this).setMeasure(actionsnotSynch, parcel);
 
 
+        ArrayList<Action> actionsSynch = new ArrayList<>();
+        actionsSynch.add(action1);
+        MeasurementManager.getInstance(this).setMeasure(actionsSynch,parcelSynch);
+
+        // TODO: 10/01/2017 not work
+        MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
 
 
-
-
+        ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcel, Boolean.FALSE);
+        ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcel, Boolean.TRUE);
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
@@ -81,53 +84,32 @@ public class dashBoardActivity extends AppCompatActivity {
 
         ArrayList<Parcel> parcels = new ArrayList<>();
         parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
-//
-//        for (Parcel parcelNotSynchro : parcels) {
-//
-//        }
 
-        map = new HashMap<String, String>();
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 14");
-        map.put("date", "14/14/2014");
-        listItem.add(map);
-        map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map); map = new HashMap<String, String>();
-        map.put("img", String.valueOf(R.drawable.ic_brightness_24px));
-        map.put("parcel", "Parcelle 1");
-        map.put("date", "01/01/2001");
-        listItem.add(map);
+        for (Parcel parcelNotSynchro : parcels) {
+            map = new HashMap<String, String>();
+            map.put("img", String.valueOf(R.drawable.ic_notsynch));
+            map.put("parcel", parcelNotSynchro.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelNotSynchro, Boolean.FALSE)));
+            listItem.add(map);
+        }
 
-        listviewParcel = (ListView)findViewById(R.id.listViewParcel);
-        SimpleAdapter listviewadapter = new SimpleAdapter (this.getBaseContext(), listItem, R.layout.dashboardadapter,
-                new String[] {"img","parcel", "date"}, new int[] {R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
+        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.TRUE);
+        for (Parcel parcelSynchro : parcels) {
+            map = new HashMap<String, String>();
+            map.put("img", String.valueOf(R.drawable.ic_synch));
+            map.put("parcel", parcelSynchro.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelSynchro, Boolean.TRUE)));
+            listItem.add(map);
+        }
+
+
+        listviewParcel = (ListView) findViewById(R.id.listViewParcel);
+        SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.dashboardadapter,
+                new String[]{"img", "parcel", "date"}, new int[]{R.id.imgViewParcel, R.id.txtViewNameParcel, R.id.txtViewDateParcel});
 
         listviewParcel.setAdapter(listviewadapter);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -144,29 +126,23 @@ public class dashBoardActivity extends AppCompatActivity {
             }
         });
 
-        listviewParcel.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+
+
+        listviewParcel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long id) {
 
-                //TODO
-                Action action = new Action();
-                action.setRemark("sssss");
-                String test ;
-                String toto = "d";
-                test = toto;
-
-               /* ArrayList<String> array = new ArrayList<>();
+// TODO: 10/01/2017 faire le click sur un item
+                ArrayList<String> array = new ArrayList<>();
                 Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
 
-                myIntent.putExtra("key", action.inArray());
+                myIntent.putExtra("key","");
 
-                startActivity(myIntent);*/
+                startActivity(myIntent);
             }
         });
     }
-
 
 
     @Override
