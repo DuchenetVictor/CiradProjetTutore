@@ -69,12 +69,15 @@ public class dashBoardActivity extends AppCompatActivity {
         actionsSynch.add(action1);
         MeasurementManager.getInstance(this).setMeasure(actionsSynch,parcelSynch);
 
+        ArrayList<Action> atciontest = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch,Boolean.FALSE);
+
+
         // TODO: 10/01/2017 not work
         MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
 
 
         ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcel, Boolean.FALSE);
-        ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcel, Boolean.TRUE);
+        ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch, Boolean.TRUE);
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView

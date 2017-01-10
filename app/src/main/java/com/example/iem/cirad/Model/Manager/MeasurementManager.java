@@ -26,28 +26,15 @@ import static com.example.iem.cirad.Model.Manager.ParcelManager.*;
 
 public class MeasurementManager {
 
-    private static MeasurementManager sInstance;
-    private SQLiteDatabase db;
-    private MySQLite maBaseSQLite;
-
-
     private static final String TABLE_NAME_MEASUREMENT = "Measurement";
     private static final String TABLE_NAME_PARCEL = "Parcel";
     private static final String TABLE_NAME_ACTION = "Action";
-
-
     private static final String KEY_IDACTION_MEASUREMENT = "Id_Action";
     private static final String KEY_IDPARCEL_MEASUREMENT = "Id_Parcel";
     private static final String KEY_ISSYNCHRO_MEASUREMENT = "isSynchro";
-
-
-    // Singleton
-    public static synchronized MeasurementManager getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new MeasurementManager(context);
-        }
-        return sInstance;
-    }
+    private static MeasurementManager sInstance;
+    private SQLiteDatabase db;
+    private MySQLite maBaseSQLite;
 
 
     private MeasurementManager(Context context) {
@@ -55,6 +42,14 @@ public class MeasurementManager {
 
         // open Table on READONLY
         db = maBaseSQLite.getReadableDatabase();
+    }
+
+    // Singleton
+    public static synchronized MeasurementManager getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new MeasurementManager(context);
+        }
+        return sInstance;
     }
 
     public void close() {
@@ -167,34 +162,70 @@ public class MeasurementManager {
         return parcels;
     }
 
-    public void updateMeasurementSynchro(Parcel parcel){
-
-
+    public void updateMeasurementSynchro(Parcel parcel) {
         Cursor cursor = db.rawQuery("   SELECT * " +
                 "   FROM " + TABLE_NAME_MEASUREMENT +
-                "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = ?"+
-                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getLatitude()),String.valueOf(booleanToInt(Boolean.FALSE))});
+                "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = ?" +
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getId()), String.valueOf(booleanToInt(Boolean.FALSE))});
+
+        ArrayList<Integer> idAction = new ArrayList<>();
+
         try {
             cursor.moveToFirst();
             do {
-                ContentValues contentvalues = new ContentValues();
-                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
-                contentvalues.put(KEY_IDPARCEL_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_MEASUREMENT)));
-                contentvalues.put(KEY_IDACTION_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
-
-                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
-                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
-                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
-
-                db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter, null);
-
+                idAction.add(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
             } while (cursor.moveToNext());
+
+            ContentValues contentvalues = new ContentValues();
+            contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
+            for (int id : idAction) {
+
+                String strFilter = KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+
+                        "   AND "+ KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(id);
+
+                db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter,null);
+            }
+
+
         } catch (Exception e) {
-            Log.d("bdd", e.getMessage());
+            e.getMessage();
         } finally {
             cursor.close();
         }
     }
+
+
+//        try {
+//            cursor.moveToFirst();
+//            do {
+//
+//                ContentValues contentvalues = new ContentValues();
+//                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
+//
+//                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
+//                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
+//                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
+//
+//
+//
+
+//                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
+//                contentvalues.put(KEY_IDPARCEL_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_MEASUREMENT)));
+//                contentvalues.put(KEY_IDACTION_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
+//
+//                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
+//                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
+//                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
+//
+//                db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter, null);
+//
+//            } while (cursor.moveToNext());
+//        } catch (Exception e) {
+//            Log.d("bdd", e.getMessage());
+//        } finally {
+//            cursor.close();
+//        }
+//    }
 }
 
 
