@@ -72,7 +72,7 @@ public class dashBoardActivity extends AppCompatActivity {
         ArrayList<Action> atciontest = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch,Boolean.FALSE);
 
 
-        // TODO: 10/01/2017 not work
+
         MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
 
 
@@ -118,13 +118,7 @@ public class dashBoardActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Action action = new Action();
-                ArrayList<String> array = new ArrayList<>();
-                Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
-
-                myIntent.putExtra("key", action.inArray());
-
+                Intent myIntent = new Intent(getApplicationContext(), MeasurementParcelActivity.class);
                 startActivity(myIntent);
             }
         });

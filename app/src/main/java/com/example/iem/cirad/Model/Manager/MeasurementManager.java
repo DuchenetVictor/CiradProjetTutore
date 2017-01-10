@@ -185,47 +185,12 @@ public class MeasurementManager {
 
                 db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter,null);
             }
-
-
         } catch (Exception e) {
             e.getMessage();
         } finally {
             cursor.close();
         }
     }
-
-
-//        try {
-//            cursor.moveToFirst();
-//            do {
-//
-//                ContentValues contentvalues = new ContentValues();
-//                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
-//
-//                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
-//                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
-//                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
-//
-//
-//
-
-//                contentvalues.put(KEY_ISSYNCHRO_MEASUREMENT,booleanToInt(Boolean.TRUE));
-//                contentvalues.put(KEY_IDPARCEL_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDPARCEL_MEASUREMENT)));
-//                contentvalues.put(KEY_IDACTION_MEASUREMENT,cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
-//
-//                String strFilter = KEY_ISSYNCHRO_MEASUREMENT +" = "+String.valueOf(booleanToInt(Boolean.FALSE))+", "+
-//                        KEY_IDPARCEL_MEASUREMENT+" = "+parcel.getId()+", "+
-//                        KEY_IDACTION_MEASUREMENT+ " = " +String.valueOf(cursor.getInt(cursor.getColumnIndex(KEY_IDACTION_MEASUREMENT)));
-//
-//                db.update(TABLE_NAME_MEASUREMENT,contentvalues,strFilter, null);
-//
-//            } while (cursor.moveToNext());
-//        } catch (Exception e) {
-//            Log.d("bdd", e.getMessage());
-//        } finally {
-//            cursor.close();
-//        }
-//    }
 }
 
 

@@ -132,6 +132,10 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `Password` TEXT NOT NULL,"+
                 "           `isChief` INTEGER NOT NULL,"+
                 "           PRIMARY KEY(`Id`))");
+
+        db.execSQL("CREATE TABLE `TypeAction` (" +
+                "           `Name` TEXT NOT NULL,"+
+                "           PRIMARY KEY(`Name`))");
     }
 
 
