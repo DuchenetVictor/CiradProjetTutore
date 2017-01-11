@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.iem.cirad.R;
+import com.example.iem.cirad.rest.ApiClient;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static com.example.iem.cirad.R.id.time;
@@ -87,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+
 
         // Reset errors.
         mLoginView.setError(null);
