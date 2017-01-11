@@ -41,13 +41,24 @@ public class dashBoardActivity extends AppCompatActivity {
 
         setTitle("Tableau de bord");
 
+
         Parcel parcel = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
         Parcel parcelSynch = new Parcel(2, "Parcelle Synch");
-        User user = new User(1, "mathieu", "123", Boolean.FALSE);
-
+        Parcel parcel3 = new Parcel(3, "Parcelle 3");
+        Parcel parcel4 = new Parcel(4, "Parcelle 4");
+        Parcel parcel5 = new Parcel(5, "Parcelle 5");
+        Parcel parcel6 = new Parcel(6, "Parcelle 6");
         ParcelManager.getInstance(this).setParcel(parcel);
         ParcelManager.getInstance(this).setParcel(parcelSynch);
+        ParcelManager.getInstance(this).setParcel(parcel3);
+        ParcelManager.getInstance(this).setParcel(parcel4);
+        ParcelManager.getInstance(this).setParcel(parcel5);
+        ParcelManager.getInstance(this).setParcel(parcel6);
+
+
+        User user = new User(1, "mathieu", "123", Boolean.FALSE);
         UserManager.getInstance(this).setUser(user);
+
 
         Date date = new Date(213132121);
         Action action1 = new Action("labourer", 1, Boolean.FALSE, "sdfdbfq,fqsdf", date, 1);

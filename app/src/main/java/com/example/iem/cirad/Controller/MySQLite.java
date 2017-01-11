@@ -125,19 +125,22 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `isSynchro` INTEGER NOT NULL,"+
                 "           PRIMARY KEY(`Id_Action`,`Id_Parcel`,isSynchro))");
 
-
         db.execSQL("CREATE TABLE `User` (" +
-                "           `Id` INTEGER,"+
+                "           `Id` INTEGER NOT NULL,"+
                 "           `Login` TEXT NOT NULL,"+
                 "           `Password` TEXT NOT NULL,"+
                 "           `isChief` INTEGER NOT NULL,"+
                 "           PRIMARY KEY(`Id`))");
 
-        db.execSQL("CREATE TABLE `TypeAction` (" +
+        db.execSQL("CREATE TABLE `ParcelsUser` (" +
+                "           `Id_User` INTEGER NOT NULL,"+
+                "           `Id_Parcel` INTEGER NOT NULL,"+
+                "           PRIMARY KEY(`Id_User`,`Id_Parcel`))");
+
+        db.execSQL("CREATE TABLE `TypeAction` ("  +
                 "           `Name` TEXT NOT NULL,"+
                 "           PRIMARY KEY(`Name`))");
     }
-
 
 
     @Override
