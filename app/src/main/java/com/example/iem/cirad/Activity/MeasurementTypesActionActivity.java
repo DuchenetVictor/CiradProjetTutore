@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -54,15 +55,15 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
 
         for (String typeaction : typesAction) {
             map = new HashMap<String, String>();
+            map.put("btnName",typeaction);
             map.put("typeAction", typeaction);
             listItem.add(map);
         }
 
 
         ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
-
         SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
-                new String[]{"typeAction"}, new int[]{R.id.txtvTypeActionName});
+                new String[]{"btnName","typeAction"}, new int[]{R.id.btnadapter,R.id.txtvTypeActionName});
 
         lstvTypesAction.setAdapter(listviewadapter);
 

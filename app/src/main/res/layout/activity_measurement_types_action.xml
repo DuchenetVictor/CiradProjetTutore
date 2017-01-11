@@ -19,7 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtvParcelName"
-            android:layout_margin="7pt"/>
+            android:layout_margin="7pt"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
 
         <View
             android:layout_width="fill_parent"

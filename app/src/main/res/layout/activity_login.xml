@@ -87,17 +87,6 @@
             android:textStyle="bold"
             android:textColor="#FFFF"/>
 
-            <Button
-                android:id="@+id/sync_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="140dp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="@string/action_sync"
-                android:background="#1477e1"
-                android:textStyle="bold"
-                android:textColor="#FFFF"/>
         </LinearLayout>
 </LinearLayout>
 </ScrollView>
