@@ -2,9 +2,12 @@ package com.example.iem.cirad.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.iem.cirad.Model.Manager.MeasurementManager;
 import com.example.iem.cirad.Model.Manager.ParcelManager;
@@ -24,7 +27,6 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_measurement_types_action);
 
         setTitle("Nouvelle Saisie");
-
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
@@ -63,6 +65,13 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
                 new String[]{"typeAction"}, new int[]{R.id.txtvTypeActionName});
 
         lstvTypesAction.setAdapter(listviewadapter);
+
+        lstvTypesAction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT);
+            }
+        });
 
     }
 }
