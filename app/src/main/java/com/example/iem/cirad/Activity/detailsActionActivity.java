@@ -2,7 +2,6 @@ package com.example.iem.cirad.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -15,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.iem.cirad.R;
 
+
 import java.io.ByteArrayOutputStream;
+
 
 public class detailsActionActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -35,6 +34,29 @@ public class detailsActionActivity extends AppCompatActivity {
         validationAction();
         seekBarUrgence();
         seekBarNivTraitement();
+
+/*
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+
+
+        Call<List<Farm>> call = apiService.getFarm();
+
+        call.enqueue(new Callback<List<Farm>>() {
+            @Override
+            public void onResponse(Call<List<Farm>> call, Response<List<Farm>> response) {
+                String e = "";
+            }
+
+            @Override
+            public void onFailure(Call<List<Farm>> call, Throwable t) {
+                String f = "";
+
+            }
+
+        });
+*/
     }
 
 
