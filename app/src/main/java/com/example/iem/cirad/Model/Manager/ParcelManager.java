@@ -46,6 +46,30 @@ public class ParcelManager {
         db.close();
     }
 
+    public Parcel getParcelById(Integer id){
+
+        Parcel parcel = new Parcel();
+
+        Cursor cursor = db.rawQuery("SELECT * "+
+                "   FROM    " + TABLE_NAME_PARCEL+
+                "   WHERE   "+KEY_ID_PARCEL+" = ?",new String[]{String.valueOf(id)});
+
+        try{
+            cursor.moveToFirst();
+            do {
+                parcel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_PARCEL)));
+                parcel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_PARCEL)));
+                parcel.setLongitude(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE_PARCEL)));
+                parcel.setLatitude(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE_PARCEL)));
+            }while (cursor.moveToNext());
+        }catch (Exception e){
+
+        }finally {
+            cursor.close();
+        }
+        return parcel;
+    }
+
     public ArrayList<Parcel> getParcels() {
 
         ArrayList<Parcel> parcels = new ArrayList<>();
