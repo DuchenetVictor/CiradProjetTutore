@@ -31,7 +31,9 @@
             android:name=".Activity.dashBoardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.MeasurementParcelActivity"></activity>
+        <activity android:name=".Activity.MeasurementParcelActivity" />
+        <activity android:name=".Activity.MeasurementTypesActionActivity">
+        </activity>
     </application>
 
 </manifest>
