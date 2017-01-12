@@ -14,7 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
+import com.example.iem.cirad.rest.ApiClient;
 
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +37,7 @@ public class detailsActionActivity extends AppCompatActivity {
         validationAction();
         seekBarUrgence();
         seekBarNivTraitement();
+
 
 /*
         ApiInterface apiService =

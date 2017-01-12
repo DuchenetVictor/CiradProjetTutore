@@ -22,7 +22,11 @@ public class User {
         this.isConnected = isConnected;
     }
 
-
+    public User(int id, String login, String password) {
+        Id = id;
+        Login = login;
+        Password = password;
+    }
     public int getId() {
         return Id;
     }

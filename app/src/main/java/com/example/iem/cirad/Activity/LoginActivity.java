@@ -126,21 +126,20 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            ApiClient.CheckAuthentification(login,password,this);
             showProgress(true);
-            Intent i = new Intent(this, dashBoardActivity.class);
-            startActivity(i);
-            showProgress(false);
+
         }
     }
 
     private boolean isLoginValid(String login) {
         //TODO: Replace this with your own logic
-        return login.contains("aze");
+        return login.length()> 1;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 1;
     }
 
     /**

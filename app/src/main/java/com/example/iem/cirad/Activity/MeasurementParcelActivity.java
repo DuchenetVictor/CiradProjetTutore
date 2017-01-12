@@ -12,8 +12,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.iem.cirad.Model.Manager.ParcelManager;
+import com.example.iem.cirad.Model.Manager.UserManager;
 import com.example.iem.cirad.Model.Pojo.Parcel;
+import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
+import com.example.iem.cirad.rest.ApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +30,10 @@ public class MeasurementParcelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //ApiClient.GetFarm();
+
+        UserManager.getInstance(this).getUser();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measurement_parcel);
 
