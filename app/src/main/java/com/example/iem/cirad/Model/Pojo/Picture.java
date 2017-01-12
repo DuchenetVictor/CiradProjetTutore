@@ -11,6 +11,9 @@ public class Picture {
     private int Id;
     private Blob BlobPicture;
 
+    public Picture() {
+    }
+
     public Picture(int id, Blob blobPicture) {
         Id = id;
         BlobPicture = blobPicture;

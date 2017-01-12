@@ -184,6 +184,7 @@ public class detailsActionActivity extends AppCompatActivity {
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
             byte [] byte_arr = stream.toByteArray();
             String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT);
+
         }
     }
 

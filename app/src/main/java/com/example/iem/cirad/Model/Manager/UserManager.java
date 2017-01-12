@@ -90,6 +90,30 @@ public class UserManager {
         }
     }
 
+
+    public User GetUserConnected(){
+        Cursor cursor = db.rawQuery("SELECT * " +
+                "   FROM " + TABLE_NAME_USER+
+                "   WHERE "+ KEY_ISCONNECTED_USER+ " = ?",new String[]{String.valueOf(booleanToInt(Boolean.TRUE))});
+        User user = new User();
+
+        try{
+            cursor.moveToFirst();
+            do {
+                user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_USER)));
+                user.setLogin(cursor.getString(cursor.getColumnIndex(KEY_LOGIN_USER)));
+                user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_PASSWORD_USER)));
+                user.setIsChief(intToBoolean(cursor.getInt(cursor.getColumnIndex(KEY_ISCHIEF_USER))));
+                user.setIsConnected(intToBoolean(cursor.getInt(cursor.getColumnIndex(KEY_ISCONNECTED_USER))));
+            }while (cursor.moveToNext());
+        }catch (Exception e){
+            e.getMessage();
+        }finally {
+            cursor.close();
+        }
+        return user;
+    }
+
     public long setUser(User user){
         ContentValues values = new ContentValues();
         values.put(KEY_ID_USER, user.getId());

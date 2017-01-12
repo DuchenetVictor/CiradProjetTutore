@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iem.cirad.Model.Manager.MeasurementManager;
 import com.example.iem.cirad.Model.Manager.ParcelManager;
 import com.example.iem.cirad.Model.Manager.TypeActionManager;
 import com.example.iem.cirad.Model.Pojo.Parcel;
@@ -55,24 +53,24 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
 
         for (String typeaction : typesAction) {
             map = new HashMap<String, String>();
-            map.put("btnName",typeaction);
+            map.put("btnName",">>");
             map.put("typeAction", typeaction);
             listItem.add(map);
         }
 
 
-//        ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
-//        SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
-//                new String[]{"btnName","typeAction"}, new int[]{R.id.,R.id.txtvTypeActionName});
-//
-//        lstvTypesAction.setAdapter(listviewadapter);
-//
-//        lstvTypesAction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT);
-//            }
-//        });
 
+        ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
+        SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
+                new String[]{"btnName","typeAction"}, new int[]{R.id.btnConfigAction,R.id.txtvTypeActionName});
+
+        lstvTypesAction.setAdapter(listviewadapter);
+
+        lstvTypesAction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT);
+            }
+        });
     }
 }

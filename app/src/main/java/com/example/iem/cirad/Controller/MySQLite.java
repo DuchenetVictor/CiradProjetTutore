@@ -80,8 +80,6 @@ public class MySQLite extends SQLiteOpenHelper {
             myOutput.close();
             myInput.close();
 
-
-
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -112,6 +110,13 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `DateMeasure` TEXT NOT NULL," +
                 "           `Id_User` INTEGER NOT NULL)");
 
+        db.execSQL("CREATE TABLE `Picture` (" +
+                "           `Id` INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "           `Blob` BLOB NOT NULL,"+
+                "           `Id_Action` INTEGE NOT NULL," +
+                "           PRIMARY KEY(`Id`))");
+
+
         db.execSQL("CREATE TABLE `Parcel` ( " +
                 "           `Id` INTEGER NOT NULL, " +
                 "           `Name` TEXT NOT NULL, " +
@@ -123,14 +128,14 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `Id_Parcel` INTEGER NOT NULL,"+
                 "           `Id_Action` INTEGER NOT NULL,"+
                 "           `isSynchro` INTEGER NOT NULL,"+
-                "           PRIMARY KEY(`Id_Action`,`Id_Parcel`,isSynchro))");
+                "           PRIMARY KEY(`Id_Action`,`Id_Parcel`,`isSynchro`))");
 
-        db.execSQL("CREATE TABLE `User` (" +
+        db.execSQL("CREATE TABLE `User` ( " +
                 "           `Id` INTEGER NOT NULL,"+
                 "           `Login` TEXT NOT NULL,"+
                 "           `Password` TEXT NOT NULL,"+
                 "           `isChief` INTEGER NOT NULL,"+
-                "           `isConnected` INTEGER NOT NULL"+
+                "           `isConnected` INTEGER NOT NULL,"+
                 "           PRIMARY KEY(`Id`))");
 
         db.execSQL("CREATE TABLE `ParcelsUser` (" +
