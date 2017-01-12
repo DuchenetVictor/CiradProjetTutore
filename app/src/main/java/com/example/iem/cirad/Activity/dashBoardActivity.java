@@ -56,7 +56,7 @@ public class dashBoardActivity extends AppCompatActivity {
         ParcelManager.getInstance(this).setParcel(parcel6);
 
 
-        User user = new User(1, "mathieu", "123", Boolean.FALSE);
+        User user = new User(1, "mathieu", "123", false,true);
         UserManager.getInstance(this).setUser(user);
 
 

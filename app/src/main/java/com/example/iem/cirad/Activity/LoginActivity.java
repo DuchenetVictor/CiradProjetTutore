@@ -126,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+
             ApiClient.CheckAuthentification(login,password,this);
             showProgress(true);
 

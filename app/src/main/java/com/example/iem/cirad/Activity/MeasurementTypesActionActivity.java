@@ -61,18 +61,18 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
         }
 
 
-        ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
-        SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
-                new String[]{"btnName","typeAction"}, new int[]{R.id.btnadapter,R.id.txtvTypeActionName});
-
-        lstvTypesAction.setAdapter(listviewadapter);
-
-        lstvTypesAction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT);
-            }
-        });
+//        ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
+//        SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
+//                new String[]{"btnName","typeAction"}, new int[]{R.id.,R.id.txtvTypeActionName});
+//
+//        lstvTypesAction.setAdapter(listviewadapter);
+//
+//        lstvTypesAction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(),String.valueOf(position),Toast.LENGTH_SHORT);
+//            }
+//        });
 
     }
 }

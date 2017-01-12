@@ -1,20 +1,21 @@
 package com.example.iem.cirad.rest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.example.iem.cirad.Activity.LoginActivity;
 import com.example.iem.cirad.Activity.dashBoardActivity;
+import com.example.iem.cirad.Model.Manager.ParcelManager;
+import com.example.iem.cirad.Model.Manager.TypeActionManager;
 import com.example.iem.cirad.Model.Manager.UserManager;
 import com.example.iem.cirad.Model.Pojo.Action;
-import com.example.iem.cirad.Model.Pojo.ActionType;
+import com.example.iem.cirad.Model.Pojo.TypeAction;
 import com.example.iem.cirad.Model.Pojo.Farm;
 import com.example.iem.cirad.Model.Pojo.Parcel;
 import com.example.iem.cirad.Model.Pojo.User;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,12 +94,9 @@ public class ApiClient  {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                //TODO AJOUT USER BDD
-                //UserManager.getInstance(context).setUser(response.body());
-
-                getActionType();
-                Intent i = new Intent(context, dashBoardActivity.class);
-                context.startActivity(i);
+                response.body().setIsConnected(true);
+                UserManager.getInstance(context).setUser(response.body());
+                getParcelByUserId(response.body().getId(),context);
 
             }
 
@@ -111,41 +109,51 @@ public class ApiClient  {
         });
     }
 
-    public static void getParcelByUserId(int id){
+    public static void getParcelByUserId(int id, final Context context){
 
         Call<List<Parcel>> call =  getApiInterface().getParcelByUserId(id);
 
         call.enqueue(new Callback<List<Parcel>>() {
             @Override
             public void onResponse(Call<List<Parcel>> call, Response<List<Parcel>> response) {
-                //TODO ADD PARCEL IN BDD
+                if(response.body() == null)
+                {
+                }
+                else {
+                    for (Parcel parcel : response.body()) {
+                        ParcelManager.getInstance(context).setParcel(parcel);
+                    }
+                }
+                getTypeAction(context);
+
             }
 
             @Override
             public void onFailure(Call<List<Parcel>> call, Throwable t) {
-                String f = "";
 
             }
 
         });
     }
 
-    public static void getActionType(){
+    public static void getTypeAction(final Context context){
 
-        Call<List<ActionType>> call = (Call<List<ActionType>>) getApiInterface().getActionType();
+        Call<List<TypeAction>> call =  getApiInterface().getActionType();
 
-        call.enqueue(new Callback<List<ActionType>>() {
+        call.enqueue(new Callback<List<TypeAction>>() {
             @Override
-            public void onResponse(Call<List<ActionType>> call, Response<List<ActionType>> response) {
-            //TODO ADD ACTIONTYPE BDD
-
-            //TODO GET ID USER CONNECTED
-                getParcelByUserId(2);
+            public void onResponse(Call<List<TypeAction>> call, Response<List<TypeAction>> response) {
+                ArrayList<String> listActionType = new ArrayList<>();
+                for (TypeAction typeAction : response.body()) {
+                    listActionType.add(typeAction.getName());
+                }
+                TypeActionManager.getInstance(context).setTypesAction(listActionType);
+                Intent i = new Intent(context, dashBoardActivity.class);
+                context.startActivity(i);
             }
 
             @Override
-            public void onFailure(Call<List<ActionType>> call, Throwable t) {
-                String f = "";
+            public void onFailure(Call<List<TypeAction>> call, Throwable t) {
 
             }
 

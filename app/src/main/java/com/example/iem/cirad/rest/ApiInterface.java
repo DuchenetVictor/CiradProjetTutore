@@ -5,7 +5,7 @@ package com.example.iem.cirad.rest;
  */
 
 import com.example.iem.cirad.Model.Pojo.Action;
-import com.example.iem.cirad.Model.Pojo.ActionType;
+import com.example.iem.cirad.Model.Pojo.TypeAction;
 import com.example.iem.cirad.Model.Pojo.Farm;
 import com.example.iem.cirad.Model.Pojo.Parcel;
 import com.example.iem.cirad.Model.Pojo.User;
@@ -23,22 +23,28 @@ import retrofit2.http.Path;
 
 public interface ApiInterface {
 
+
     @FormUrlEncoded
     @POST("/CiradWB/web/index.php/login")
     Call<User> getAuthentification(@Field("login")String login, @Field("password") String password);
 
+    @FormUrlEncoded
     @POST("/sendActions")
     Call<Object> sendActions(@Body Parcel parcel,@Body List<Action> action);
 
-    @GET("/CiradWB/web/index.php//parcel/{Id}")
-    Call<List<Parcel>> getParcelByUserId(@Path("Id") int Id);
+    @FormUrlEncoded
+    @POST("/CiradWB/web/index.php/parceluser")
+    Call<List<Parcel>> getParcelByUserId(@Field("id") int id);
 
-    @GET("/typeAction")
-    List<Call<ActionType>> getActionType();
+    @GET("/CiradWB/web/index.php/typeaction")
+    Call<List<TypeAction>> getActionType();
 
+
+
+    //UNUSED
     @GET("/CiradWB/web/index.php/parcel")
     List<Call<Parcel>> getParcel();
-
+    //UNUSED
     @GET("/CiradWB/web/index.php/farm")
     Call<List<Farm>> getFarm();
 

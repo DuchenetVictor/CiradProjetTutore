@@ -32,7 +32,6 @@ public class MeasurementParcelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //ApiClient.GetFarm();
 
-        UserManager.getInstance(this).getUser();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_measurement_parcel);
