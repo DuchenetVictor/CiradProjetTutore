@@ -9,9 +9,10 @@ public class AdapterModel {
     private String name;
     private boolean isSelected;
 
-    public AdapterModel(int idTypeAction, String name) {
+    public AdapterModel(int idTypeAction, String name, Boolean isSelected) {
         this.idTypeAction = idTypeAction;
         this.name = name;
+        this.isSelected=isSelected;
     }
 
     public int getIdTypeAction() {

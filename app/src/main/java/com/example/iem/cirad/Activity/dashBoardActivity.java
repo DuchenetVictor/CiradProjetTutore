@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 public class dashBoardActivity extends AppCompatActivity {
 
     private ListView listviewParcel;
+    private Button btnSynch;
 
 
     @Override
@@ -38,25 +40,25 @@ public class dashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
+        btnSynch=(Button)findViewById(R.id.btnSynchParcel);
+
 
         setTitle("Tableau de bord");
 
 
-        Parcel parcel = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
+        Parcel parcelNotSynch = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
         Parcel parcelSynch = new Parcel(2, "Parcelle Synch");
         Parcel parcel3 = new Parcel(3, "Parcelle 3");
         Parcel parcel4 = new Parcel(4, "Parcelle 4");
         Parcel parcel5 = new Parcel(5, "Parcelle 5");
         Parcel parcel6 = new Parcel(6, "Parcelle 6");
-        ParcelManager.getInstance(this).setParcel(parcel);
+        ParcelManager.getInstance(this).setParcel(parcelNotSynch);
         ParcelManager.getInstance(this).setParcel(parcelSynch);
         ParcelManager.getInstance(this).setParcel(parcel3);
         ParcelManager.getInstance(this).setParcel(parcel4);
         ParcelManager.getInstance(this).setParcel(parcel5);
         ParcelManager.getInstance(this).setParcel(parcel6);
-
 
 
         User user = new User(1, "mathieu", "123", false,true);
@@ -77,7 +79,7 @@ public class dashBoardActivity extends AppCompatActivity {
         actionsnotSynch.add(action1);
         actionsnotSynch.add(action2);
         actionsnotSynch.add(action3);
-        MeasurementManager.getInstance(this).setMeasure(actionsnotSynch, parcel);
+        MeasurementManager.getInstance(this).setMeasure(actionsnotSynch, parcelNotSynch);
 
 
         ArrayList<Action> actionsSynch = new ArrayList<>();
@@ -87,11 +89,10 @@ public class dashBoardActivity extends AppCompatActivity {
         ArrayList<Action> atciontest = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch,Boolean.FALSE);
 
 
-
         MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
 
 
-        ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcel, Boolean.FALSE);
+        ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelNotSynch, Boolean.FALSE);
         ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch, Boolean.TRUE);
 
 

@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.iem.cirad.Model.Manager.ActionManager;
+import com.example.iem.cirad.Model.Pojo.Action;
 import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
 import com.example.iem.cirad.rest.ApiClient;
@@ -25,19 +27,29 @@ import java.io.ByteArrayOutputStream;
 
 public class detailsActionActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    SeekBar tt;
+    TextView txtvTypeActionName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.title_activity_details_action);
+
         setContentView(R.layout.activity_details_action);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dispatchTakePictureIntent();
         validationAction();
         seekBarUrgence();
+
         seekBarNivTraitement();
 
+
+        String typeAction = getIntent().getExtras().getString("key");
+
+        txtvTypeActionName= (TextView)findViewById(R.id.txtvTypeActionName);
+        txtvTypeActionName.setText(typeAction);
 
 /*
         ApiInterface apiService =
@@ -83,15 +95,14 @@ public class detailsActionActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Long idAction =  ActionManager.getInstance(getApplicationContext()).setAction(new Action());
             }
         });
     }
     private void seekBarUrgence(){
-         SeekBar sbLvlAlerte = (SeekBar) findViewById(R.id.sbLvlAlerte);
-       final TextView tvLvlAlert = (TextView) findViewById(R.id.tvLvlAlert);;
-       tvLvlAlert.setText("1 (normal)" );
+        SeekBar sbLvlAlerte = (SeekBar) findViewById(R.id.sbLvlAlerte);
+        final TextView tvLvlAlert = (TextView) findViewById(R.id.tvLvlAlert);;
+        tvLvlAlert.setText("1 (normal)" );
 
         sbLvlAlerte.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 1;
@@ -128,25 +139,21 @@ public class detailsActionActivity extends AppCompatActivity {
 
     private void seekBarNivTraitement(){
         SeekBar sbLvlTreatment = (SeekBar) findViewById(R.id.sbLvlTreatment);
-        final TextView tvLvlTreatment = (TextView) findViewById(R.id.tvLvlTreatment);;
-        tvLvlTreatment.setText("1 (normal)" );
+        final TextView tvLvlTreatment = (TextView) findViewById(R.id.tvLvlTreatment);
+        ;
+        tvLvlTreatment.setText("1 (normal)");
 
         sbLvlTreatment.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 1;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
-                if(progresValue == 0)
-                {
-                    tvLvlTreatment.setText( progresValue + " (peu intensif)" );
-                }
-                else if(progresValue == 1)
-                {
-                    tvLvlTreatment.setText( progresValue + " (normal)" );
-                }
-                else
-                {
-                    tvLvlTreatment.setText( progresValue + " (très intensif)" );
+                if (progresValue == 0) {
+                    tvLvlTreatment.setText(progresValue + " (peu intensif)");
+                } else if (progresValue == 1) {
+                    tvLvlTreatment.setText(progresValue + " (normal)");
+                } else {
+                    tvLvlTreatment.setText(progresValue + " (très intensif)");
                 }
 
             }
