@@ -10,14 +10,16 @@ public class User {
     private String Login;
     private String Password;
     private Boolean isChief;
+    private Boolean isConnected;
 
     public User() {    }
 
-    public User(int id, String login, String password, Boolean isChief) {
+    public User(int id, String login, String password, Boolean isChief, Boolean isConnected) {
         Id = id;
         Login = login;
         Password = password;
         this.isChief = isChief;
+        this.isConnected = isConnected;
     }
 
 
@@ -50,6 +52,14 @@ public class User {
     }
 
     public void setIsChief(Boolean isChief) {
-        isChief = isChief;
+        this.isChief = isChief;
+    }
+
+    public Boolean getIsConnected() {
+        return isConnected;
+    }
+
+    public void setIsConnected(Boolean isConnected) {
+        this.isConnected = isConnected;
     }
 }

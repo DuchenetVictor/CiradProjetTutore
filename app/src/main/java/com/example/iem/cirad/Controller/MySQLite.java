@@ -130,6 +130,7 @@ public class MySQLite extends SQLiteOpenHelper {
                 "           `Login` TEXT NOT NULL,"+
                 "           `Password` TEXT NOT NULL,"+
                 "           `isChief` INTEGER NOT NULL,"+
+                "           `isConnected` INTEGER NOT NULL"+
                 "           PRIMARY KEY(`Id`))");
 
         db.execSQL("CREATE TABLE `ParcelsUser` (" +
