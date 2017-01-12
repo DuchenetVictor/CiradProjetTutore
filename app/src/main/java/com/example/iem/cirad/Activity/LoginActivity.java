@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.nfc.FormatException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.iem.cirad.Model.Manager.UserManager;
+import com.example.iem.cirad.Model.Pojo.Action;
+import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
 import com.example.iem.cirad.rest.ApiClient;
 
@@ -55,6 +59,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        User user  =  UserManager.getInstance(this).GetUserConnected();
+        try{
+            if(user.getIsConnected())
+            {
+                Intent i = new Intent(this, dashBoardActivity.class);
+                this.startActivity(i);
+                this.finish();
+            }
+        }
+        catch (Exception e)
+        {
+        }
+
         // Set up the login form.
         mLoginView = (AutoCompleteTextView) findViewById(R.id.email);
 
@@ -126,20 +145,19 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            showProgress(true);
 
             ApiClient.CheckAuthentification(login,password,this);
             showProgress(true);
-
+            this.finish();
         }
     }
 
     private boolean isLoginValid(String login) {
-        //TODO: Replace this with your own logic
         return login.length()> 1;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 1;
     }
 

@@ -14,14 +14,20 @@ import com.example.iem.cirad.Model.Pojo.Farm;
 import com.example.iem.cirad.Model.Pojo.Parcel;
 import com.example.iem.cirad.Model.Pojo.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Multipart;
+
 /**
  * Created by iem on 10/01/2017.
  */
@@ -160,22 +166,36 @@ public class ApiClient  {
         });
     }
 
-    public static void sendAction(Parcel parcel,List<Action> actions){
+    public static void sendAction(Action actions){
+        /*
+        RequestBody body =
+                RequestBody.create(actions);
 
-        Call<Object> call =  getApiInterface().sendActions(parcel,actions);
+        Call<ResponseBody> call = getApiInterface().sendActions(body);
+        Response<ResponseBody> response = null;
+        try {
+            response = call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
 
-        call.enqueue(new Callback<Object>() {
+        Call<String> call =  getApiInterface().sendActions(actions);
+
+
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
 
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
 
             }
 
         });
+
     }
 
 

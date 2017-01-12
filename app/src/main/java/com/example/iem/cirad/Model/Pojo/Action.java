@@ -1,5 +1,7 @@
 package com.example.iem.cirad.Model.Pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -10,16 +12,24 @@ import java.util.ArrayList;
 public class Action  {
     private int Id;
     private String Name;
+
+    @SerializedName("Emergency")
     private int EmergencyLevel;
     private boolean isTreatment;
     private int TreatmentLevel;
     private String Remark;
     private Date DateMeasure;
+
+    @SerializedName("Id_User")
     private int IdUser;
 
     public Action() {
     }
 
+    public Action(String name,int id) {
+        Name = name;
+        Id = id;
+    }
     public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Name = name;
         EmergencyLevel = emergencyLevel;

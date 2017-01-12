@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.example.iem.cirad.Controller.MySQLite;
 import com.example.iem.cirad.Model.Manager.ActionManager;
@@ -37,6 +38,7 @@ public class dashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         setTitle("Tableau de bord");
@@ -171,6 +173,8 @@ public class dashBoardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(this, "This is my Toast message!",
+                    Toast.LENGTH_LONG).show();
             return true;
         }
 

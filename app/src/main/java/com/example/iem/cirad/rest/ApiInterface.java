@@ -12,6 +12,9 @@ import com.example.iem.cirad.Model.Pojo.User;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -29,8 +32,8 @@ public interface ApiInterface {
     Call<User> getAuthentification(@Field("login")String login, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("/sendActions")
-    Call<Object> sendActions(@Body Parcel parcel,@Body List<Action> action);
+    @POST("/CiradWB/web/index.php/insertaction")
+    Call<String> sendActions(@Body Action action);
 
     @FormUrlEncoded
     @POST("/CiradWB/web/index.php/parceluser")

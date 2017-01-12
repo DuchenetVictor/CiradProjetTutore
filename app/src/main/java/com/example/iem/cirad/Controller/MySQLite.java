@@ -113,8 +113,7 @@ public class MySQLite extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE `Picture` (" +
                 "           `Id` INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "           `Blob` BLOB NOT NULL,"+
-                "           `Id_Action` INTEGE NOT NULL," +
-                "           PRIMARY KEY(`Id`))");
+                "           `Id_Action` INTEGER NOT NULL)");
 
 
         db.execSQL("CREATE TABLE `Parcel` ( " +
