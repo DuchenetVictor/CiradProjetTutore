@@ -20,7 +20,11 @@ public class User {
         this.isChief = isChief;
     }
 
-
+    public User(int id, String login, String password) {
+        Id = id;
+        Login = login;
+        Password = password;
+    }
     public int getId() {
         return Id;
     }

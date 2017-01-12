@@ -8,13 +8,25 @@ public class Parcel {
 
     private int Id;
     private String Name;
+    private String Remark;
     private String Latitude;
     private String Longitude;
+    private String Id_Farm;
+    public Parcel()
+    {
 
-    public Parcel() {
     }
 
-    public Parcel(int id, String name) {
+    public Parcel(int id,String name) {
+        Id = id;
+        Name = name;
+    }
+
+    public Parcel(int id, String name,String remark,String latitude,String longitude,String id_Farm) {
+        Id_Farm = id_Farm;
+        Longitude = longitude;
+        Latitude = latitude;
+        Remark = remark;
         Name = name;
         Id = id;
     }
