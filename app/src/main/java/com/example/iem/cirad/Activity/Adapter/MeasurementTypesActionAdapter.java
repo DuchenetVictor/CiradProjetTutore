@@ -16,11 +16,12 @@ import java.util.List;
 /**
  * Created by iem on 12/01/2017.
  */
-class ViewHolder {
+ class ViewHolder {
     protected Button btnConfigAction;
     protected CheckBox chkSelecAction;
 
 }
+//todo http://stackoverflow.com/questions/12602426/listview-with-checkbox-radiobutton-textview-and-button-not-working-correctly-in
 
 public class MeasurementTypesActionAdapter extends ArrayAdapter<AdapterModel> {
 
@@ -67,8 +68,6 @@ public class MeasurementTypesActionAdapter extends ArrayAdapter<AdapterModel> {
                 listTypeAction.get(getPosition).setSelected(checkbox.isChecked());
             }
         });
-
-
         return convertView;
     }
 }
