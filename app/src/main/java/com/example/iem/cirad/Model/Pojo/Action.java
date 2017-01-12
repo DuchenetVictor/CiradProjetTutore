@@ -108,7 +108,6 @@ public class Action  {
         Remark = remark;
     }
 
-
     public Date getDateMeasure() {
         return DateMeasure;
     }
