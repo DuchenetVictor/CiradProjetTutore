@@ -173,8 +173,12 @@ public class dashBoardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "This is my Toast message!",
-                    Toast.LENGTH_LONG).show();
+
+           User user = UserManager.getInstance(this).GetUserConnected();
+            user.setIsConnected(false);
+            //UserManager.getInstance(this).SetISConnectedForUser(user);
+            Intent i = new Intent(this, LoginActivity.class);
+            this.startActivity(i);
             return true;
         }
 

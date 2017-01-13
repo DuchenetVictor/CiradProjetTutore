@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
 
             ApiClient.CheckAuthentification(login,password,this);
-            showProgress(true);
+            showProgress(false);
             this.finish();
         }
     }
