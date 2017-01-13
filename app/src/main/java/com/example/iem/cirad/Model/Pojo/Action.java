@@ -30,6 +30,7 @@ public class Action  {
         Name = name;
         Id = id;
     }
+
     public Action(String name, int emergencyLevel, boolean isTreatment, int treatmentLevel, String remark, Date dateMeasure, int idUser) {
         Name = name;
         EmergencyLevel = emergencyLevel;

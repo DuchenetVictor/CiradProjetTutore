@@ -44,7 +44,7 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
 
         ArrayList<AdapterModel> adapterModels = new ArrayList<>();
         for (int i = 0; i< typesAction.size();i++){
-            adapterModels.add(new AdapterModel(i,typesAction.get(i),Boolean.FALSE,user));
+            adapterModels.add(new AdapterModel(i,typesAction.get(i),Boolean.FALSE,user,parcel));
         }
 
         ArrayList<Action> actions = MeasurementManager.getInstance(this).getActionsInParcelByUser(parcel,Boolean.FALSE,user);

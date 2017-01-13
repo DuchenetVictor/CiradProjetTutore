@@ -43,7 +43,7 @@ public class MeasurementTypesActionAdapter extends ArrayAdapter<AdapterModel> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder = null;
         if (convertView == null) {
@@ -88,8 +88,10 @@ public class MeasurementTypesActionAdapter extends ArrayAdapter<AdapterModel> {
                 Integer indice = (Integer) btn.getTag();
                 Intent myIntent = new Intent(context, detailsActionActivity.class);
 
-                //myIntent.putExtra("key",String.valueOf(parcels.get(position).getId()));
-                //// TODO: 12/01/2017 click du bouton, enregistrement de l'action, renvoi un string avec l'id de l'action 
+                myIntent.putExtra("userid",String.valueOf(listadaptersModel.get(position).getUser().getId()));
+                myIntent.putExtra("key",String.valueOf(listadaptersModel.get(position).getName()));
+                myIntent.putExtra("parcelid",String.valueOf(listadaptersModel.get(position).getParcel().getId()));
+                context.startActivity(myIntent);
             }
         });
 
