@@ -35,46 +35,35 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
         setTitle("Nouvelle Saisie");
 
 
-/*        //Création de la ArrayList qui nous permettra de remplire la listView
-        ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
-
-        //On déclare la HashMap qui contiendra les informations pour un item
-        HashMap<String, String> map;*/
-
         String idParcel = getIntent().getExtras().getString("key");
         User user = UserManager.getInstance(this).GetUserConnected();
 
         Parcel parcel = ParcelManager.getInstance(this).getParcelById(Integer.valueOf(idParcel));
-        ArrayList<Action> actions = MeasurementManager.getInstance(this).getActionsInParcel(parcel,Boolean.FALSE);
 
+        ArrayList<String> typesAction = TypeActionManager.getInstance(this).getTypesAction();
 
-        ArrayList<String> allTypesAction = TypeActionManager.getInstance(this).getTypesAction();
-        ArrayList<AdapterModel> adapterModels= new ArrayList<>();
-
-        for (int i = 1; i< allTypesAction.size();i++){
-            adapterModels.add(new AdapterModel(i,allTypesAction.get(i),Boolean.FALSE));
+        ArrayList<AdapterModel> adapterModels = new ArrayList<>();
+        for (int i = 0; i< typesAction.size();i++){
+            adapterModels.add(new AdapterModel(i,typesAction.get(i),Boolean.FALSE,user));
         }
 
-        /*Test*/
-        adapterModels.add(new AdapterModel(0,allTypesAction.get(0),Boolean.TRUE));
+        ArrayList<Action> actions = MeasurementManager.getInstance(this).getActionsInParcelByUser(parcel,Boolean.FALSE,user);
+
+        //on pass la checkebox a selectionner a chaque correspondence entre name de adaptermodel(le typeaction)
+        // et les Actions deja renseigner par le ser sur cette parcel
+        if(!actions.isEmpty()){
+            for (int i = 0;i<actions.size();i++ ){
+                for (AdapterModel adapterModel : adapterModels){
+                    if (adapterModel.getName() == actions.get(i).getName()){
+                        adapterModels.get(i).setSelected(Boolean.TRUE);
+                        adapterModels.get(i).setId(actions.get(i).getId());
+                    }
+                }
+            }
+        }
 
         TextView txtvParcelName = (TextView)findViewById(R.id.txtvParcelName);
         txtvParcelName.setText(parcel.getName());
-
-/*
-
-        for (String typeaction : typesAction) {
-            map = new HashMap<String, String>();
-            map.put("btnName",">>");
-            map.put("typeAction", typeaction);
-            listItem.add(map);
-        }
-
-
- SimpleAdapter listviewadapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.typeactionadaptater,
-                new String[]{"btnName","typeAction"}, new int[]{R.id.btnConfigAction,R.id.txtvTypeActionName});
-
-        lstvTypesAction.setAdapter(listviewadapter);*/
 
         ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
         ArrayAdapter<AdapterModel> adapter = new MeasurementTypesActionAdapter(this,adapterModels);

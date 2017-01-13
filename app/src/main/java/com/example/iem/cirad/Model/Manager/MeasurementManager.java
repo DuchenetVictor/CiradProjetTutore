@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.iem.cirad.Controller.MySQLite;
 import com.example.iem.cirad.Model.Pojo.Action;
 import com.example.iem.cirad.Model.Pojo.Parcel;
+import com.example.iem.cirad.Model.Pojo.User;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -107,6 +108,43 @@ public class MeasurementManager {
                 "   WHERE " + TABLE_NAME_ACTION + "." + KEY_ID_ACTION + " = " + TABLE_NAME_MEASUREMENT + "." + KEY_IDACTION_MEASUREMENT +
                 "   AND " + KEY_IDPARCEL_MEASUREMENT + " = ?" +
                 "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?", new String[]{String.valueOf(parcel.getId()), String.valueOf(booleanToInt(synch))});
+
+
+        try {
+            cursor.moveToFirst();
+            do {
+                Action action = new Action();
+                action.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_ACTION)));
+                action.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_ACTION)));
+                action.setEmergencyLevel(cursor.getInt(cursor.getColumnIndex(KEY_EMERGENCYLEVEL_ACTION)));
+                action.setIsTreatment(intToBoolean(cursor.getInt(cursor.getColumnIndex(KEY_ISTREATMENT_ACTION))));
+                action.setTreatmentLevel(cursor.getInt(cursor.getColumnIndex(KEY_TREATMENTLEVEL_ACTION)));
+                action.setRemark(cursor.getString(cursor.getColumnIndex(KEY_REMARK_ACTION)));
+                action.setDateMeasure(Date.valueOf(cursor.getString(cursor.getColumnIndex(KEY_DATEMEASURE_ACTION))));
+                action.setIdUser(cursor.getInt(cursor.getColumnIndex(KEY_IDUSER_ACTION)));
+
+                actions.add(action);
+
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
+            Log.d("bdd", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+        return actions;
+    }
+
+    public ArrayList<Action> getActionsInParcelByUser(Parcel parcel, boolean synch,User user) {
+
+        ArrayList<Action> actions = new ArrayList<>();
+
+        //get all actions in Table Measurement, with id of parcel and synch in param
+        Cursor cursor = db.rawQuery("   SELECT " + TABLE_NAME_ACTION + ".*" +
+                "   FROM " + TABLE_NAME_MEASUREMENT + ", " + TABLE_NAME_ACTION +
+                "   WHERE " + TABLE_NAME_ACTION + "." + KEY_ID_ACTION + " = " + TABLE_NAME_MEASUREMENT + "." + KEY_IDACTION_MEASUREMENT +
+                "   AND " + KEY_IDPARCEL_MEASUREMENT + " = ?" +
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?"+
+                "   AND " + KEY_IDUSER_ACTION+ " = ?", new String[]{String.valueOf(parcel.getId()), String.valueOf(booleanToInt(synch)),String.valueOf(user.getId())});
 
 
         try {

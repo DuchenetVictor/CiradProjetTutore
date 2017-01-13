@@ -1,26 +1,30 @@
 package com.example.iem.cirad.Activity.Adapter;
 
+import com.example.iem.cirad.Model.Pojo.User;
+
 /**
  * Created by iem on 12/01/2017.
  */
 
 public class AdapterModel {
-    private int idTypeAction;
+    private int id;
     private String name;
     private boolean isSelected;
+    private User user;
 
-    public AdapterModel(int idTypeAction, String name, Boolean isSelected) {
-        this.idTypeAction = idTypeAction;
+    public AdapterModel(int id, String name, Boolean isSelected,User user) {
+        this.id = id;
         this.name = name;
         this.isSelected=isSelected;
+        this.user=user;
     }
 
-    public int getIdTypeAction() {
-        return idTypeAction;
+    public int getId() {
+        return id;
     }
 
-    public void setIdTypeAction(int idTypeAction) {
-        this.idTypeAction = idTypeAction;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,5 +41,13 @@ public class AdapterModel {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

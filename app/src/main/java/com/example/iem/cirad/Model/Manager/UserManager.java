@@ -90,6 +90,21 @@ public class UserManager {
         }
     }
 
+    public void SetDisconnectedForUser(User user) {
+
+        ContentValues contentvalues = new ContentValues();
+        contentvalues.put(KEY_ISCONNECTED_USER,booleanToInt(Boolean.FALSE));
+
+        String strFilter = KEY_ID_USER+" = "+user.getId();
+        try {
+
+            db.update(TABLE_NAME_USER,contentvalues,strFilter,null);
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+
 
     public User GetUserConnected(){
         Cursor cursor = db.rawQuery("SELECT * " +
