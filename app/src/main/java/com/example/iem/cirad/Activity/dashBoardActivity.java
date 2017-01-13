@@ -61,9 +61,9 @@ public class dashBoardActivity extends AppCompatActivity {
         ParcelManager.getInstance(this).setParcel(parcel6);
 
 
-        User user = new User(1, "mathieu", "123", false,true);
+       // User user = new User(1, "mathieu", "123", false,true);
 
-        UserManager.getInstance(this).setUser(user);
+       // UserManager.getInstance(this).setUser(user);
 
 
         Date date = new Date(213132121);
@@ -174,9 +174,11 @@ public class dashBoardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "This is my Toast message!",
-                    Toast.LENGTH_LONG).show();
-            return true;
+
+           User user = UserManager.getInstance(this).GetUserConnected();
+            UserManager.getInstance(this).SetDisconnectedForUser(user);
+            Intent i = new Intent(this, LoginActivity.class);
+            this.startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

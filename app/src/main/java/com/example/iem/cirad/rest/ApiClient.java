@@ -56,7 +56,6 @@ public class ApiClient  {
         return apiService;
     }
 
-
     public static void GetFarm(){
 
 
@@ -131,7 +130,6 @@ public class ApiClient  {
                     }
                 }
                 getTypeAction(context);
-
             }
 
             @Override
@@ -167,18 +165,7 @@ public class ApiClient  {
     }
 
     public static void sendAction(Action actions){
-        /*
-        RequestBody body =
-                RequestBody.create(actions);
 
-        Call<ResponseBody> call = getApiInterface().sendActions(body);
-        Response<ResponseBody> response = null;
-        try {
-            response = call.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         Call<String> call =  getApiInterface().sendActions(actions);
 
@@ -186,12 +173,10 @@ public class ApiClient  {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
             }
 
         });
