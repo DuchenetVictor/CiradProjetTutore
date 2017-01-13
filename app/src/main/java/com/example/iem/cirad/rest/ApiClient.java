@@ -108,8 +108,10 @@ public class ApiClient  {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
                 Intent i = new Intent(context, LoginActivity.class);
                 context.startActivity(i);
+
             }
 
         });
@@ -167,18 +169,7 @@ public class ApiClient  {
     }
 
     public static void sendAction(Action actions){
-        /*
-        RequestBody body =
-                RequestBody.create(actions);
 
-        Call<ResponseBody> call = getApiInterface().sendActions(body);
-        Response<ResponseBody> response = null;
-        try {
-            response = call.execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         Call<String> call =  getApiInterface().sendActions(actions);
 
