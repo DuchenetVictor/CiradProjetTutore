@@ -56,7 +56,6 @@ public class ApiClient  {
         return apiService;
     }
 
-
     public static void GetFarm(){
 
 
@@ -108,10 +107,8 @@ public class ApiClient  {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
                 Intent i = new Intent(context, LoginActivity.class);
                 context.startActivity(i);
-
             }
 
         });
@@ -133,7 +130,6 @@ public class ApiClient  {
                     }
                 }
                 getTypeAction(context);
-
             }
 
             @Override
@@ -177,12 +173,10 @@ public class ApiClient  {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-
             }
 
         });

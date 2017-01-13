@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        User user  =  UserManager.getInstance(this).GetUserConnected();
+        User user = UserManager.getInstance(this).GetUserConnected();
         try{
             if(user.getIsConnected())
             {

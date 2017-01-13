@@ -61,9 +61,9 @@ public class dashBoardActivity extends AppCompatActivity {
         ParcelManager.getInstance(this).setParcel(parcel6);
 
 
-        User user = new User(1, "mathieu", "123", false,true);
+       // User user = new User(1, "mathieu", "123", false,true);
 
-        UserManager.getInstance(this).setUser(user);
+       // UserManager.getInstance(this).setUser(user);
 
 
         Date date = new Date(213132121);
@@ -176,11 +176,9 @@ public class dashBoardActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
            User user = UserManager.getInstance(this).GetUserConnected();
-            user.setIsConnected(false);
-            //UserManager.getInstance(this).SetISConnectedForUser(user);
+            UserManager.getInstance(this).SetDisconnectedForUser(user);
             Intent i = new Intent(this, LoginActivity.class);
             this.startActivity(i);
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
