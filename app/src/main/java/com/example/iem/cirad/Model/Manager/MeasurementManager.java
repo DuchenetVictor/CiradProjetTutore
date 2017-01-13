@@ -206,7 +206,7 @@ public class MeasurementManager {
         ArrayList<Parcel> parcels = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("   SELECT * " +
-                "   FROM " + TABLE_NAME_PARCEL + ", " + TABLE_NAME_MEASUREMENT + TABLE_NAME_ACTION+
+                "   FROM " + TABLE_NAME_PARCEL + ", " + TABLE_NAME_MEASUREMENT +", "+ TABLE_NAME_ACTION+
                 "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = " + TABLE_NAME_PARCEL + "." + KEY_ID_PARCEL +
                 "   AND "+ TABLE_NAME_MEASUREMENT+"."+KEY_IDACTION_MEASUREMENT+" = "+ TABLE_NAME_ACTION+"."+KEY_ID_ACTION+
                 "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?" +

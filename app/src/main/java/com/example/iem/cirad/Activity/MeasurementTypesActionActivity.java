@@ -51,7 +51,8 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
 
         //on pass la checkebox a selectionner a chaque correspondence entre name de adaptermodel(le typeaction)
         // et les Actions deja renseigner par le ser sur cette parcel
-        if(!actions.isEmpty()){
+        //// TODO: 13/01/2017  
+    /*    if(!actions.isEmpty()){
             for (int i = 0;i<typesAction.size();i++ ){
                 for (AdapterModel adapterModel : adapterModels){
                     if (adapterModel.getName().contains(actions.get(i).getName())){
@@ -60,7 +61,7 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
+        }*/
 
         TextView txtvParcelName = (TextView)findViewById(R.id.txtvParcelName);
         txtvParcelName.setText(parcel.getName());

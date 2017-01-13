@@ -46,12 +46,8 @@ public class dashBoardActivity extends AppCompatActivity {
 
         setTitle("Tableau de bord");
 
+        User userconnected = UserManager.getInstance(this).GetUserConnected();
 
-        ArrayList<Parcel> parcelNotSynch = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
-        ArrayList<Parcel> parcelSynch = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.TRUE);
-
-        ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelNotSynch, Boolean.FALSE);
-        ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch, Boolean.TRUE);
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
@@ -60,22 +56,24 @@ public class dashBoardActivity extends AppCompatActivity {
         HashMap<String, String> map;
 
         ArrayList<Parcel> parcels = new ArrayList<>();
-        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
 
-        for (Parcel parcelNotSynchro : parcels) {
+        ArrayList<Parcel> parcelsNotSync = MeasurementManager.getInstance(this).getParcelsBySynchroAndUser(Boolean.FALSE,userconnected);
+
+        for (Parcel parcelNotSync : parcelsNotSync) {
             map = new HashMap<String, String>();
             map.put("img", String.valueOf(R.drawable.ic_notsynch));
-            map.put("parcel", parcelNotSynchro.getName());
-            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelNotSynchro, Boolean.FALSE)));
+            map.put("parcel", parcelNotSync.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelNotSync, Boolean.FALSE)));
             listItem.add(map);
         }
 
-        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.TRUE);
-        for (Parcel parcelSynchro : parcels) {
+        ArrayList<Parcel> parcelsSync = MeasurementManager.getInstance(this).getParcelsBySynchroAndUser(Boolean.TRUE,userconnected);
+
+        for (Parcel parcelSync : parcelsSync) {
             map = new HashMap<String, String>();
             map.put("img", String.valueOf(R.drawable.ic_synch));
-            map.put("parcel", parcelSynchro.getName());
-            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelSynchro, Boolean.TRUE)));
+            map.put("parcel", parcelSync.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelSync, Boolean.TRUE)));
             listItem.add(map);
         }
 

@@ -91,6 +91,7 @@ public class MeasurementTypesActionAdapter extends ArrayAdapter<AdapterModel> {
                 myIntent.putExtra("userid",String.valueOf(listadaptersModel.get(position).getUser().getId()));
                 myIntent.putExtra("key",String.valueOf(listadaptersModel.get(position).getName()));
                 myIntent.putExtra("parcelid",String.valueOf(listadaptersModel.get(position).getParcel().getId()));
+
                 getContext().startActivity(myIntent);
             }
         });
