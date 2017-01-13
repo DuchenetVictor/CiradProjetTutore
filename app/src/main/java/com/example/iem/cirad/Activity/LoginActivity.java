@@ -59,20 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        User user = UserManager.getInstance(this).GetUserConnected();
-        try{
-            if(user.getIsConnected())
-            {
-                Intent i = new Intent(this, dashBoardActivity.class);
-                this.startActivity(i);
-                this.finish();
-            }
-        }
-        catch (Exception e)
-        {
-        }
+        CheckIfAlreadyConnected();
 
         // Set up the login form.
         mLoginView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -195,6 +182,22 @@ public class LoginActivity extends AppCompatActivity {
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private void CheckIfAlreadyConnected(){
+        User user = UserManager.getInstance(this).GetUserConnected();
+        try{
+            if(user.getIsConnected())
+            {
+                Intent i = new Intent(this, dashBoardActivity.class);
+                this.startActivity(i);
+                this.finish();
+            }
+        }
+        catch (Exception e)
+        {
+        }
+
     }
 }
 

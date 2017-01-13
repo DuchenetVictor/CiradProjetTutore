@@ -32,15 +32,15 @@ public interface ApiInterface {
     Call<User> getAuthentification(@Field("login")String login, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("/CiradWB/web/index.php/insertaction")
-    Call<String> sendActions(@Body Action action);
-
-    @FormUrlEncoded
     @POST("/CiradWB/web/index.php/parceluser")
     Call<List<Parcel>> getParcelByUserId(@Field("id") int id);
 
     @GET("/CiradWB/web/index.php/typeaction")
     Call<List<TypeAction>> getActionType();
+
+    @FormUrlEncoded
+    @POST("/CiradWB/web/index.php/insertaction")
+    Call<String> sendActions(@Body Action action,@Field("Id")String idParcel);
 
 
 

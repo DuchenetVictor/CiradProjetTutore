@@ -1,7 +1,6 @@
 package com.example.iem.cirad.Activity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +12,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.example.iem.cirad.Controller.MySQLite;
 import com.example.iem.cirad.Model.Manager.ActionManager;
 import com.example.iem.cirad.Model.Manager.MeasurementManager;
 import com.example.iem.cirad.Model.Manager.ParcelManager;
@@ -33,7 +29,6 @@ public class dashBoardActivity extends AppCompatActivity {
 
     private ListView listviewParcel;
     private Button btnSynch;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

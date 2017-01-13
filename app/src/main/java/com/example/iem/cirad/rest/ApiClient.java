@@ -13,31 +13,23 @@ import com.example.iem.cirad.Model.Pojo.TypeAction;
 import com.example.iem.cirad.Model.Pojo.Farm;
 import com.example.iem.cirad.Model.Pojo.Parcel;
 import com.example.iem.cirad.Model.Pojo.User;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Multipart;
+
 
 /**
  * Created by iem on 10/01/2017.
  */
 
 public class ApiClient  {
-      static long id = -1;
 
     public static final String BASE_URL = "http://138.68.89.183/CiradWB/web/index.php/";
     private static Retrofit retrofit = null;
-
 
     public static Retrofit getClient() {
         if (retrofit==null) {
@@ -55,42 +47,6 @@ public class ApiClient  {
 
         return apiService;
     }
-
-    public static void GetFarm(){
-
-
-        Call<List<Farm>> call =  getApiInterface().getFarm();
-
-        call.enqueue(new Callback<List<Farm>>() {
-            @Override
-            public void onResponse(Call<List<Farm>> call, Response<List<Farm>> response) {
-            }
-
-            @Override
-            public void onFailure(Call<List<Farm>> call, Throwable t) {
-            }
-
-        });
-    }
-
-    public static void CheckParcel(){
-        Call<List<Parcel>> call = (Call<List<Parcel>>) getApiInterface().getParcel();
-
-        call.enqueue(new Callback<List<Parcel>>() {
-            @Override
-            public void onResponse(Call<List<Parcel>> call, Response<List<Parcel>> response) {
-                String e = "";
-            }
-
-            @Override
-            public void onFailure(Call<List<Parcel>> call, Throwable t) {
-                String f = "";
-
-            }
-
-        });
-    }
-
 
     public static void CheckAuthentification(String login, String password, final Context context){
 
@@ -164,25 +120,12 @@ public class ApiClient  {
         });
     }
 
-    public static void sendAction(Action actions){
+    //
+    //TODO Methode qui permet d'envoyer la liste d'action non synchroniser de l'apllication au serveur
+    public static void sendAction(Action actions,String idParcel){
 
-
-        Call<String> call =  getApiInterface().sendActions(actions);
-
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-            }
-
-        });
-
-    }
 
 
 
+    }
 }
