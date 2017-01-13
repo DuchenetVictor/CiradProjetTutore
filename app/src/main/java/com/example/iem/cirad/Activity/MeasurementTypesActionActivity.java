@@ -52,9 +52,9 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
         //on pass la checkebox a selectionner a chaque correspondence entre name de adaptermodel(le typeaction)
         // et les Actions deja renseigner par le ser sur cette parcel
         if(!actions.isEmpty()){
-            for (int i = 0;i<actions.size();i++ ){
+            for (int i = 0;i<typesAction.size();i++ ){
                 for (AdapterModel adapterModel : adapterModels){
-                    if (adapterModel.getName().equalsIgnoreCase(actions.get(i).getName())){
+                    if (adapterModel.getName().contains(actions.get(i).getName())){
                         adapterModels.get(i).setSelected(Boolean.TRUE);
                         adapterModels.get(i).setId(actions.get(i).getId());
                     }

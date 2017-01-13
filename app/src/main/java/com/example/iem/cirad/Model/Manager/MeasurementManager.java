@@ -200,6 +200,38 @@ public class MeasurementManager {
         return parcels;
     }
 
+
+    public ArrayList<Parcel> getParcelsBySynchroAndUser(boolean bool,User user) {
+
+        ArrayList<Parcel> parcels = new ArrayList<>();
+
+        Cursor cursor = db.rawQuery("   SELECT * " +
+                "   FROM " + TABLE_NAME_PARCEL + ", " + TABLE_NAME_MEASUREMENT + TABLE_NAME_ACTION+
+                "   WHERE " + TABLE_NAME_MEASUREMENT + "." + KEY_IDPARCEL_MEASUREMENT + " = " + TABLE_NAME_PARCEL + "." + KEY_ID_PARCEL +
+                "   AND "+ TABLE_NAME_MEASUREMENT+"."+KEY_IDACTION_MEASUREMENT+" = "+ TABLE_NAME_ACTION+"."+KEY_ID_ACTION+
+                "   AND " + KEY_ISSYNCHRO_MEASUREMENT + " = ?" +
+                "   AND "+ KEY_IDUSER_ACTION + " = ?"+
+                "   GROUP BY " + KEY_IDPARCEL_MEASUREMENT, new String[]{String.valueOf(booleanToInt(bool)),String.valueOf(user.getId())});
+
+        try {
+            cursor.moveToFirst();
+            do {
+                Parcel parcel = new Parcel();
+                parcel.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_PARCEL)));
+                parcel.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME_PARCEL)));
+                parcel.setLongitude(cursor.getString(cursor.getColumnIndex(KEY_LONGITUDE_PARCEL)));
+                parcel.setLatitude(cursor.getString(cursor.getColumnIndex(KEY_LATITUDE_PARCEL)));
+                parcels.add(parcel);
+
+            } while (cursor.moveToNext());
+        } catch (Exception e) {
+            Log.d("bdd", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+        return parcels;
+    }
+
     public void updateMeasurementSynchro(Parcel parcel) {
         Cursor cursor = db.rawQuery("   SELECT * " +
                 "   FROM " + TABLE_NAME_MEASUREMENT +

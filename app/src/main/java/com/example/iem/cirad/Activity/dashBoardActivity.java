@@ -47,50 +47,8 @@ public class dashBoardActivity extends AppCompatActivity {
         setTitle("Tableau de bord");
 
 
-        Parcel parcelNotSynch = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
-        Parcel parcelSynch = new Parcel(2, "Parcelle Synch");
-        Parcel parcel3 = new Parcel(3, "Parcelle 3");
-        Parcel parcel4 = new Parcel(4, "Parcelle 4");
-        Parcel parcel5 = new Parcel(5, "Parcelle 5");
-        Parcel parcel6 = new Parcel(6, "Parcelle 6");
-        ParcelManager.getInstance(this).setParcel(parcelNotSynch);
-        ParcelManager.getInstance(this).setParcel(parcelSynch);
-        ParcelManager.getInstance(this).setParcel(parcel3);
-        ParcelManager.getInstance(this).setParcel(parcel4);
-        ParcelManager.getInstance(this).setParcel(parcel5);
-        ParcelManager.getInstance(this).setParcel(parcel6);
-
-
-        User user = new User(1, "mathieu", "123", false,true);
-
-        UserManager.getInstance(this).setUser(user);
-
-
-        Date date = new Date(213132121);
-        Action action1 = new Action("labourer", 1, Boolean.FALSE, "sdfdbfq,fqsdf", date, 1);
-        Action action2 = new Action("TRaitement anti fongique", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
-        Action action3 = new Action("TRaitement anti clement", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
-
-        action1.setId((int) ActionManager.getInstance(this).setAction(action1));
-        action2.setId((int) ActionManager.getInstance(this).setAction(action2));
-        action3.setId((int) ActionManager.getInstance(this).setAction(action3));
-        ArrayList<Action> actionsnotSynch = new ArrayList<>();
-
-        actionsnotSynch.add(action1);
-        actionsnotSynch.add(action2);
-        actionsnotSynch.add(action3);
-        MeasurementManager.getInstance(this).setMeasure(actionsnotSynch, parcelNotSynch);
-
-
-        ArrayList<Action> actionsSynch = new ArrayList<>();
-        actionsSynch.add(action1);
-        MeasurementManager.getInstance(this).setMeasure(actionsSynch,parcelSynch);
-
-        ArrayList<Action> atciontest = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch,Boolean.FALSE);
-
-
-        MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
-
+        ArrayList<Parcel> parcelNotSynch = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
+        ArrayList<Parcel> parcelSynch = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.TRUE);
 
         ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelNotSynch, Boolean.FALSE);
         ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch, Boolean.TRUE);
