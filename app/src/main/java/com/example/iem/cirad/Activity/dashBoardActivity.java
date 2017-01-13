@@ -147,12 +147,12 @@ public class dashBoardActivity extends AppCompatActivity {
                                     View view, int position, long id) {
 
 // TODO: 10/01/2017 faire le click sur un item
-                ArrayList<String> array = new ArrayList<>();
+               /* ArrayList<String> array = new ArrayList<>();
                 Intent myIntent = new Intent(getApplicationContext(), detailsActionActivity.class);
 
                 myIntent.putExtra("key","");
 
-                startActivity(myIntent);
+                startActivity(myIntent);*/
             }
         });
     }

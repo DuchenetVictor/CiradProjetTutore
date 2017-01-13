@@ -64,7 +64,7 @@ public class detailsActionActivity extends AppCompatActivity {
         parcelid = Integer.valueOf(getIntent().getExtras().getString("parcelid"));
         parcel = ParcelManager.getInstance(this).getParcelById(parcelid);
 
-        txtvTypeActionName= (TextView)findViewById(R.id.txtvTypeActionName);
+        txtvTypeActionName= (TextView)findViewById(R.id.txtvActionName);
         txtvTypeActionName.setText(typeAction);
 
     }
@@ -100,6 +100,8 @@ public class detailsActionActivity extends AppCompatActivity {
                 actions.add(action);
 
                 MeasurementManager.getInstance(getApplicationContext()).setMeasure(actions,parcel);
+                myIntent.putExtra("key",String.valueOf(parcelid));
+                startActivity(myIntent);
 
 
             }
@@ -164,7 +166,6 @@ public class detailsActionActivity extends AppCompatActivity {
                 } else if (progresValue == 1) {
                     tvLvlTreatment.setText(progresValue + " (normal)");
                     posTraitement = progresValue;
-
                 } else {
                     tvLvlTreatment.setText(progresValue + " (très intensif)");
                     posTraitement = progresValue;
