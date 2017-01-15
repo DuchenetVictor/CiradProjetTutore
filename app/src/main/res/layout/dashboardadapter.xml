@@ -6,10 +6,9 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="63dp"
+        android:layout_width="50dp"
+        android:layout_height="68dp"
         android:id="@+id/imgViewParcel"
-        android:layout_weight="0.39"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView
@@ -18,7 +17,6 @@
         android:layout_height="match_parent"
         android:id="@+id/txtViewNameParcel"
         android:layout_weight="1.36"
-        android:textAlignment="textStart"
         android:gravity="center_vertical"
         android:textSize="18sp"
         android:textColor="@android:color/black" />
@@ -28,9 +26,8 @@
         android:layout_height="match_parent"
         android:id="@+id/txtViewDateParcel"
         android:gravity="center_vertical"
-        android:layout_weight="0.85"
+        android:layout_weight="0.75"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textAlignment="textEnd" />
+        android:textSize="16sp"/>
 
 </LinearLayout>

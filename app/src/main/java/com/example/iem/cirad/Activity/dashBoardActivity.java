@@ -49,7 +49,6 @@ public class dashBoardActivity extends AppCompatActivity {
         User userconnected = UserManager.getInstance(this).GetUserConnected();
 
 
-
         //Création de la ArrayList qui nous permettra de remplire la listView
         ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
         //On déclare la HashMap qui contiendra les informations pour un item

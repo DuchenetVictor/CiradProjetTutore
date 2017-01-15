@@ -30,7 +30,8 @@ public class MeasurementParcelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //ApiClient.GetFarm();
+
+
 
 
         super.onCreate(savedInstanceState);

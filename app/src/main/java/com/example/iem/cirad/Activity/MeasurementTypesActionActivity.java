@@ -2,13 +2,9 @@ package com.example.iem.cirad.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.iem.cirad.Activity.Adapter.AdapterModel;
 import com.example.iem.cirad.Activity.Adapter.MeasurementTypesActionAdapter;
@@ -18,12 +14,10 @@ import com.example.iem.cirad.Model.Manager.TypeActionManager;
 import com.example.iem.cirad.Model.Manager.UserManager;
 import com.example.iem.cirad.Model.Pojo.Action;
 import com.example.iem.cirad.Model.Pojo.Parcel;
-import com.example.iem.cirad.Model.Pojo.TypeAction;
 import com.example.iem.cirad.Model.Pojo.User;
 import com.example.iem.cirad.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MeasurementTypesActionActivity extends AppCompatActivity {
 
@@ -49,9 +43,9 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
 
         ArrayList<Action> actions = MeasurementManager.getInstance(this).getActionsInParcelByUser(parcel,Boolean.FALSE,user);
 
-        //on pass la checkebox a selectionner a chaque correspondence entre name de adaptermodel(le typeaction)
+        //on passe la checkebox a selectionner a chaque correspondence entre name de adaptermodel(le typeaction)
         // et les Actions deja renseigner par le ser sur cette parcel
-        //// TODO: 13/01/2017  
+        //// TODO: 13/01/2017
     /*    if(!actions.isEmpty()){
             for (int i = 0;i<typesAction.size();i++ ){
                 for (AdapterModel adapterModel : adapterModels){
@@ -69,6 +63,8 @@ public class MeasurementTypesActionActivity extends AppCompatActivity {
         ListView lstvTypesAction = (ListView) findViewById(R.id.listvTypesAction);
         ArrayAdapter<AdapterModel> adapter = new MeasurementTypesActionAdapter(this,adapterModels);
         lstvTypesAction.setAdapter(adapter);
+        //// TODO: 15/01/2017 faire le bouton, qui  recupere toutes les actions checker
 
+        //// TODO: 15/01/2017 faire a chaque click sur un action, reouvrir l'action avec les données deja rempli si action est dans la bdd (recupe l'id de l'action.
         }
 }
