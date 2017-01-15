@@ -38,57 +38,13 @@ public class dashBoardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         btnSynch=(Button)findViewById(R.id.btnSynchParcel);
 
+         //// TODO: 15/01/2017  faire le bouton synch ( sup les parcel synch, envoie les measurements non synch au web service, puis on les passe a synch dans la bdd.
+        // garder les actions qui sont danbs les measurements, poutr ne pas avoir trop d'action qui s'accumule a cour du temps)
 
         setTitle("Tableau de bord");
 
+        User userconnected = UserManager.getInstance(this).GetUserConnected();
 
-        Parcel parcelNotSynch = new Parcel(1, "Parcelle NotSynch", "dd", "dd");
-        Parcel parcelSynch = new Parcel(2, "Parcelle Synch");
-        Parcel parcel3 = new Parcel(3, "Parcelle 3");
-        Parcel parcel4 = new Parcel(4, "Parcelle 4");
-        Parcel parcel5 = new Parcel(5, "Parcelle 5");
-        Parcel parcel6 = new Parcel(6, "Parcelle 6");
-        ParcelManager.getInstance(this).setParcel(parcelNotSynch);
-        ParcelManager.getInstance(this).setParcel(parcelSynch);
-        ParcelManager.getInstance(this).setParcel(parcel3);
-        ParcelManager.getInstance(this).setParcel(parcel4);
-        ParcelManager.getInstance(this).setParcel(parcel5);
-        ParcelManager.getInstance(this).setParcel(parcel6);
-
-
-       // User user = new User(1, "mathieu", "123", false,true);
-
-       // UserManager.getInstance(this).setUser(user);
-
-
-        Date date = new Date(213132121);
-        Action action1 = new Action("labourer", 1, Boolean.FALSE, "sdfdbfq,fqsdf", date, 1);
-        Action action2 = new Action("TRaitement anti fongique", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
-        Action action3 = new Action("TRaitement anti clement", 3, Boolean.TRUE, 0, "ce dépecher de faire le traitemzent", date, 1);
-
-        action1.setId((int) ActionManager.getInstance(this).setAction(action1));
-        action2.setId((int) ActionManager.getInstance(this).setAction(action2));
-        action3.setId((int) ActionManager.getInstance(this).setAction(action3));
-        ArrayList<Action> actionsnotSynch = new ArrayList<>();
-
-        actionsnotSynch.add(action1);
-        actionsnotSynch.add(action2);
-        actionsnotSynch.add(action3);
-        MeasurementManager.getInstance(this).setMeasure(actionsnotSynch, parcelNotSynch);
-
-
-        ArrayList<Action> actionsSynch = new ArrayList<>();
-        actionsSynch.add(action1);
-        MeasurementManager.getInstance(this).setMeasure(actionsSynch,parcelSynch);
-
-        ArrayList<Action> atciontest = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch,Boolean.FALSE);
-
-
-        MeasurementManager.getInstance(this).updateMeasurementSynchro(parcelSynch);
-
-
-        ArrayList<Action> actionsinparcelNotSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelNotSynch, Boolean.FALSE);
-        ArrayList<Action> actionsinparcelSynch = MeasurementManager.getInstance(this).getActionsInParcel(parcelSynch, Boolean.TRUE);
 
 
         //Création de la ArrayList qui nous permettra de remplire la listView
@@ -97,22 +53,24 @@ public class dashBoardActivity extends AppCompatActivity {
         HashMap<String, String> map;
 
         ArrayList<Parcel> parcels = new ArrayList<>();
-        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.FALSE);
 
-        for (Parcel parcelNotSynchro : parcels) {
+        ArrayList<Parcel> parcelsNotSync = MeasurementManager.getInstance(this).getParcelsBySynchroAndUser(Boolean.FALSE,userconnected);
+
+        for (Parcel parcelNotSync : parcelsNotSync) {
             map = new HashMap<String, String>();
             map.put("img", String.valueOf(R.drawable.ic_notsynch));
-            map.put("parcel", parcelNotSynchro.getName());
-            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelNotSynchro, Boolean.FALSE)));
+            map.put("parcel", parcelNotSync.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelNotSync, Boolean.FALSE)));
             listItem.add(map);
         }
 
-        parcels = MeasurementManager.getInstance(this).getParcelsBySynchro(Boolean.TRUE);
-        for (Parcel parcelSynchro : parcels) {
+        ArrayList<Parcel> parcelsSync = MeasurementManager.getInstance(this).getParcelsBySynchroAndUser(Boolean.TRUE,userconnected);
+
+        for (Parcel parcelSync : parcelsSync) {
             map = new HashMap<String, String>();
             map.put("img", String.valueOf(R.drawable.ic_synch));
-            map.put("parcel", parcelSynchro.getName());
-            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelSynchro, Boolean.TRUE)));
+            map.put("parcel", parcelSync.getName());
+            map.put("date", String.valueOf(MeasurementManager.getInstance(this).getLastDateInMeasurement(parcelSync, Boolean.TRUE)));
             listItem.add(map);
         }
 
